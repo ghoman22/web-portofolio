@@ -14,7 +14,12 @@ sudo chown -R www-data:www-data /var/www/portfolio
 
 # Salin konfigurasi nginx
 sudo cp nginx.conf /etc/nginx/sites-available/portfolio
-sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+if [ ! -L /etc/nginx/sites-enabled/portfolio ]; then
+    sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+else
+    echo "Symlink /etc/nginx/sites-enabled/portfolio already exists, skipping..."
+fi
+
 
 # Hapus default jika ada
 sudo rm -f /etc/nginx/sites-enabled/default
