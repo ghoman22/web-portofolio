@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>DevOps Portfolio - Firman Arya</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="#home" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="#about" role="menuitem">About</a></li>
+                <li><a href="#skills" role="menuitem">Skills</a></li>
+                <li><a href="#projects" role="menuitem">Projects</a></li>
+                <li><a href="#contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero" tabindex="-1">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Automating Complexity.<br>Scaling with <span class="highlight">Confidence.</span></h1>
+                        <p class="hero-subtitle">A DevOps Engineer dedicated to building robust, automated pipelines and
+                            resilient cloud infrastructure to accelerate software delivery.</p>
+                        <div class="hero-buttons">
+                            <a href="#projects" class="btn btn-primary">View My Work</a>
+                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="terminal-window" aria-label="Terminal window">
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                                <span class="terminal-title">zsh -- /bin/bash</span>
+                            </div>
+                            <div class="terminal-body" id="terminal-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about" tabindex="-1">
+            <div class="container">
+                <h2>Bridging Development and Operations</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>As a DevOps professional, my core mission is to bridge the gap between development and
+                            operations. I am passionate about engineering scalable infrastructure and designing seamless
+                            CI/CD workflows that allow for rapid, reliable deployments. For me, a great pipeline isn't
+                            just about automation; it's about creating a frictionless path from code to customer.</p>
+                    </div>
+                    <div class="about-image">
+                        <div class="cloud-diagram">
+                            <div class="cloud-icon"><i class="fas fa-cogs"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills" tabindex="-1">
+            <div class="container">
+                <h2>Core Technology Stack</h2>
+                <div class="skills-grid">
+                    <!-- Row 1: AWS and Docker -->
+                    <div class="skill-card" style="grid-column: 1; grid-row: 1;"><i class="fab fa-aws"
+                            aria-hidden="true"></i><span>AWS</span></div>
+                    <div class="skill-card" style="grid-column: 3; grid-row: 1;"><i class="fab fa-docker"
+                            aria-hidden="true"></i><span>Docker</span></div>
+
+                    <!-- Row 2: Kubernetes, Terraform, and GitHub Actions -->
+                    <div class="skill-card" style="grid-column: 1; grid-row: 2;"><span aria-hidden="true"
+                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="2.5rem" height="2.5rem">
+                                <circle cx="16" cy="16" r="14" fill="none" stroke="#00d4ff" stroke-width="2" />
+                                <g fill="#00d4ff">
+                                    <circle cx="16" cy="8" r="1.5" />
+                                    <circle cx="24" cy="16" r="1.5" />
+                                    <circle cx="16" cy="24" r="1.5" />
+                                    <circle cx="8" cy="16" r="1.5" />
+                                    <circle cx="20.5" cy="11.5" r="1.5" />
+                                    <circle cx="20.5" cy="20.5" r="1.5" />
+                                    <circle cx="11.5" cy="20.5" r="1.5" />
+                                    <circle cx="11.5" cy="11.5" r="1.5" />
+                                    <line x1="16" y1="8" x2="16" y2="12" stroke="#00d4ff" stroke-width="2" />
+                                    <line x1="24" y1="16" x2="20" y2="16" stroke="#00d4ff" stroke-width="2" />
+                                    <line x1="16" y1="24" x2="16" y2="20" stroke="#00d4ff" stroke-width="2" />
+                                    <line x1="8" y1="16" x2="12" y2="16" stroke="#00d4ff" stroke-width="2" />
+                                </g>
+                            </svg></span><span>Kubernetes</span></div>
+                    <div class="skill-card" style="grid-column: 2; grid-row: 2;"><span aria-hidden="true"
+                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="2.5rem" height="2.5rem">
+                                <g>
+                                    <path fill="#00d4ff"
+                                        d="M53.6 4.8 75 18.1v33.2L53.6 38zM75 53.6l21.4-13.3v33.2L75 86.8zM32.2 18.1l21.4 13.3v33.2L32.2 51.3zM75 91.9V124l21.4-13.3V78.7zM53.6 124V90.8l-21.4-13.3v33.2z" />
+                                </g>
+                            </svg></span><span>Terraform</span></div>
+                    <div class="skill-card" style="grid-column: 3; grid-row: 2;"><i class="fab fa-github"
+                            aria-hidden="true"></i><span>GitHub Actions</span></div>
+
+                    <!-- Row 3: Python and GitOps -->
+                    <div class="skill-card" style="grid-column: 1; grid-row: 3;"><i class="fab fa-python"
+                            aria-hidden="true"></i><span>Python</span></div>
+                    <div class="skill-card" style="grid-column: 3; grid-row: 3;"><span aria-hidden="true"
+                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2.5rem" height="2.5rem">
+                                <path fill="#00d4ff"
+                                    d="M12 2L2 7v10l10 5 10-5V7l-10-5zM12 4.18L19.82 8 12 11.82 4.18 8 12 4.18zM4 9.18l7 3.5v7.14l-7-3.5V9.18zm16 0v7.14l-7 3.5v-7.14l7-3.5z" />
+                                <circle cx="12" cy="8" r="1.5" fill="#00d4ff" />
+                                <path fill="#00d4ff" d="M8 12h8v1H8v-1zm0 2h8v1H8v-1z" />
+                            </svg></span><span>GitOps</span></div>
+
+                    <!-- Row 4: Jenkins -->
+                    <div class="skill-card" style="grid-column: 2; grid-row: 4;"><span aria-hidden="true"
+                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2.5rem" height="2.5rem">
+                                <path fill="#00d4ff"
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                                <circle cx="12" cy="12" r="2" fill="none" stroke="#00d4ff" stroke-width="1.5" />
+                                <path fill="#00d4ff" d="M12 8v8M8 12h8" />
+                            </svg></span><span>Jenkins</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects" tabindex="-1">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>CI/CD Pipeline for Microservices</h3>
+                        <p>Architected a fully automated CI/CD pipeline which reduced deployment times by 40%.</p>
+                        <div class="project-tech"><span>GitHub Actions</span><span>Docker</span><span>Kubernetes</span>
+                        </div>
+                        <!--<a href="#" class="btn btn-small btn-outline">View on GitHub</a> -->
+                    </div>
+                    <div class="project-card">
+                        <h3>Immutable Infrastructure on AWS</h3>
+                        <p>Provisioned a secure, scalable, and immutable infrastructure using Terraform, resulting in
+                            99.9% uptime.</p>
+                        <div class="project-tech"><span>Terraform</span><span>AWS</span><span>Packer</span></div>
+                        <!--- <a href="#" class="btn btn-small btn-outline">View on GitHub</a> -->
+                    </div>
+                    <div class="project-card">
+                        <h3>Centralized Monitoring & Alerting</h3>
+                        <p>Deployed an observability platform with Prometheus & Grafana for real-time insights across
+                            50+ services.</p>
+                        <div class="project-tech"><span>Prometheus</span><span>Grafana</span><span>AlertManager</span>
+                        </div>
+                        <!--<a href="#" class="btn btn-small btn-outline">View on GitHub</a> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact" tabindex="-1">
+            <div class="container">
+                <h2>Let's Connect</h2>
+                <p class="contact-subtitle">I'm currently available for new opportunities. <br>Feel free to reach
+                    out—I'd love to hear from you.</p>
+                <div class="contact-links">
+                    <a href="mailto:firmanap22@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"
+                            aria-hidden="true"></i> firmanap22@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/firmanaryapradhana/" target="_blank"
+                        class="btn btn-secondary"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+                    <a href="https://github.com/ghoman22" target="_blank" class="btn btn-secondary"><i
+                            class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top"><i
+            class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>
