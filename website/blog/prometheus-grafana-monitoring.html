@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Monitoring 50+ Services with Prometheus & Grafana | Firman Arya | Portfolio & Blog</title>
+    <meta name="description" content="Building a comprehensive monitoring and alerting system that provides real-time visibility into application performance and infrastructure health across distributed systems.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="../index.html#about" role="menuitem">About</a></li>
+                <li><a href="../index.html#skills" role="menuitem">Skills</a></li>
+                <li><a href="../blogs.html" role="menuitem" class="active">Blogs</a></li>
+                <li><a href="../index.html#contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post">
+            <div class="container">
+                <!-- Blog Navigation -->
+                <nav class="blog-nav">
+                    <a href="../blogs.html" class="back-to-blogs">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to All Blogs</span>
+                    </a>
+                </nav>
+
+                <!-- Blog Header -->
+                <header class="blog-header">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 5, 2024</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="fas fa-clock"></i>
+                            <span>10 min read</span>
+                        </div>
+                    </div>
+                    
+                    <h1>Monitoring 50+ Services with Prometheus & Grafana</h1>
+                    
+                    <div class="blog-tags">
+                        <span>Prometheus</span>
+                        <span>Grafana</span>
+                        <span>Monitoring</span>
+                        <span>Observability</span>
+                    </div>
+                </header>
+
+                <!-- Blog Content -->
+                <div class="blog-content">
+                    <div class="blog-intro">
+                        <p class="lead">In a microservices architecture with 50+ services running across multiple environments, comprehensive monitoring is not just helpful—it's essential for maintaining system reliability and performance. Here's how I built a scalable monitoring solution using Prometheus and Grafana.</p>
+                    </div>
+
+                    <section class="content-section">
+                        <h2>The Monitoring Challenge</h2>
+                        <p>Our distributed system presented several monitoring challenges:</p>
+                        <ul>
+                            <li>50+ microservices across development, staging, and production</li>
+                            <li>Multiple programming languages and frameworks</li>
+                            <li>Dynamic service discovery in Kubernetes</li>
+                            <li>Need for real-time alerting and historical analysis</li>
+                            <li>Different stakeholders requiring different views of the data</li>
+                        </ul>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Architecture Overview</h2>
+                        <p>Our monitoring stack consists of several components working together:</p>
+                        <div class="code-block">
+                            <pre><code>┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  Services   │───▶│ Prometheus  │───▶│   Grafana   │───▶│ AlertManager│
+│ (50+ apps)  │    │  (Metrics)  │    │ (Dashboards)│    │  (Alerts)   │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+       │                    │                    │                    │
+       │                    ▼                    ▼                    ▼
+       │            ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+       └───────────▶│   Jaeger    │    │   Loki      │    │   Slack     │
+                    │ (Tracing)   │    │   (Logs)    │    │ (Notifications)│
+                    └─────────────┘    └─────────────┘    └─────────────┘</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Prometheus Configuration</h2>
+                        
+                        <h3>Server Setup</h3>
+                        <p>Here's our Prometheus configuration for Kubernetes service discovery:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">prometheus.yml</span>
+                            </div>
+                            <pre><code>global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'production'
+    region: 'us-west-2'
+
+rule_files:
+  - "rules/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Kubernetes API Server
+  - job_name: 'kubernetes-apiservers'
+    kubernetes_sd_configs:
+    - role: endpoints
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: default;kubernetes;https
+
+  # Kubernetes Nodes
+  - job_name: 'kubernetes-nodes'
+    kubernetes_sd_configs:
+    - role: node
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - action: labelmap
+      regex: __meta_kubernetes_node_label_(.+)
+
+  # Application Services
+  - job_name: 'kubernetes-service-endpoints'
+    kubernetes_sd_configs:
+    - role: endpoints
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+      action: keep
+      regex: true
+    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+    - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      action: replace
+      target_label: kubernetes_namespace
+    - source_labels: [__meta_kubernetes_service_name]
+      action: replace
+      target_label: kubernetes_name
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']</code></pre>
+                        </div>
+
+                        <h3>Custom Metrics Implementation</h3>
+                        <p>Example of instrumenting a Node.js service:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">JavaScript</span>
+                                <span class="code-filename">metrics.js</span>
+                            </div>
+                            <pre><code>const client = require('prom-client');
+
+// Create a Registry
+const register = new client.Registry();
+
+// Add default metrics
+client.collectDefaultMetrics({ register });
+
+// Custom metrics
+const httpRequestDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'status'],
+  buckets: [0.1, 0.5, 1, 2, 5]
+});
+
+const httpRequestTotal = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'status']
+});
+
+const activeConnections = new client.Gauge({
+  name: 'active_connections',
+  help: 'Number of active connections'
+});
+
+const databaseQueryDuration = new client.Histogram({
+  name: 'database_query_duration_seconds',
+  help: 'Duration of database queries in seconds',
+  labelNames: ['query_type', 'table'],
+  buckets: [0.01, 0.05, 0.1, 0.5, 1, 2]
+});
+
+// Register metrics
+register.registerMetric(httpRequestDuration);
+register.registerMetric(httpRequestTotal);
+register.registerMetric(activeConnections);
+register.registerMetric(databaseQueryDuration);
+
+// Middleware for Express.js
+const metricsMiddleware = (req, res, next) => {
+  const start = Date.now();
+  
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    const labels = {
+      method: req.method,
+      route: req.route?.path || req.path,
+      status: res.statusCode
+    };
+    
+    httpRequestDuration.observe(labels, duration);
+    httpRequestTotal.inc(labels);
+  });
+  
+  next();
+};
+
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
+
+module.exports = {
+  register,
+  httpRequestDuration,
+  httpRequestTotal,
+  activeConnections,
+  databaseQueryDuration,
+  metricsMiddleware
+};</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Alerting Rules</h2>
+                        <p>Critical alerting rules for production monitoring:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">rules/alerts.yml</span>
+                            </div>
+                            <pre><code>groups:
+- name: application.rules
+  rules:
+  # High error rate
+  - alert: HighErrorRate
+    expr: |
+      (
+        rate(http_requests_total{status=~"5.."}[5m]) /
+        rate(http_requests_total[5m])
+      ) > 0.05
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate detected"
+      description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.kubernetes_name }}"
+
+  # High response time
+  - alert: HighResponseTime
+    expr: |
+      histogram_quantile(0.95, 
+        rate(http_request_duration_seconds_bucket[5m])
+      ) > 2
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High response time detected"
+      description: "95th percentile response time is {{ $value }}s for {{ $labels.kubernetes_name }}"
+
+  # Service down
+  - alert: ServiceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Service is down"
+      description: "{{ $labels.kubernetes_name }} has been down for more than 1 minute"
+
+  # High memory usage
+  - alert: HighMemoryUsage
+    expr: |
+      (
+        container_memory_working_set_bytes{name!=""} /
+        container_spec_memory_limit_bytes{name!=""} * 100
+      ) > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage"
+      description: "Memory usage is {{ $value }}% for {{ $labels.name }}"
+
+  # High CPU usage
+  - alert: HighCPUUsage
+    expr: |
+      (
+        rate(container_cpu_usage_seconds_total{name!=""}[5m]) /
+        container_spec_cpu_quota{name!=""} * 100
+      ) > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU usage"
+      description: "CPU usage is {{ $value }}% for {{ $labels.name }}"
+
+  # Database connection pool exhaustion
+  - alert: DatabaseConnectionPoolHigh
+    expr: |
+      (
+        database_connections_active /
+        database_connections_max
+      ) > 0.8
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Database connection pool usage high"
+      description: "Connection pool usage is {{ $value | humanizePercentage }} for {{ $labels.database }}"</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Grafana Dashboard Design</h2>
+                        
+                        <h3>Service Overview Dashboard</h3>
+                        <p>Key metrics for service health monitoring:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">JSON</span>
+                                <span class="code-filename">service-overview-dashboard.json</span>
+                            </div>
+                            <pre><code>{
+  "dashboard": {
+    "title": "Service Overview",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total[5m])) by (kubernetes_name)",
+            "legendFormat": "{{kubernetes_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 100},
+                {"color": "red", "value": 500}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Error Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) by (kubernetes_name) / sum(rate(http_requests_total[5m])) by (kubernetes_name)",
+            "legendFormat": "{{kubernetes_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 0.01},
+                {"color": "red", "value": 0.05}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "title": "Response Time (95th percentile)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (kubernetes_name, le))",
+            "legendFormat": "{{kubernetes_name}}"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+                        </div>
+
+                        <h3>Infrastructure Dashboard</h3>
+                        <p>Monitoring Kubernetes cluster health:</p>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-number">50+</div>
+                                <div class="result-label">Services monitored</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">99.9%</div>
+                                <div class="result-label">Uptime achieved</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">30s</div>
+                                <div class="result-label">Mean time to detection</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">24/7</div>
+                                <div class="result-label">Automated monitoring</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>AlertManager Configuration</h2>
+                        <p>Setting up intelligent alerting with proper routing:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">alertmanager.yml</span>
+                            </div>
+                            <pre><code>global:
+  smtp_smarthost: 'localhost:587'
+  smtp_from: 'alerts@company.com'
+  slack_api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'default-receiver'
+  routes:
+  - match:
+      severity: critical
+    receiver: 'critical-alerts'
+    group_wait: 5s
+    repeat_interval: 30m
+  - match:
+      severity: warning
+    receiver: 'warning-alerts'
+    repeat_interval: 4h
+
+receivers:
+- name: 'default-receiver'
+  slack_configs:
+  - channel: '#alerts'
+    title: 'Alert: {{ .GroupLabels.alertname }}'
+    text: |
+      {{ range .Alerts }}
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.description }}
+      *Severity:* {{ .Labels.severity }}
+      *Service:* {{ .Labels.kubernetes_name }}
+      {{ end }}
+
+- name: 'critical-alerts'
+  slack_configs:
+  - channel: '#critical-alerts'
+    title: '🚨 CRITICAL: {{ .GroupLabels.alertname }}'
+    text: |
+      {{ range .Alerts }}
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.description }}
+      *Service:* {{ .Labels.kubernetes_name }}
+      *Time:* {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+      {{ end }}
+  pagerduty_configs:
+  - routing_key: 'YOUR_PAGERDUTY_KEY'
+    description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
+
+- name: 'warning-alerts'
+  slack_configs:
+  - channel: '#warnings'
+    title: '⚠️ Warning: {{ .GroupLabels.alertname }}'
+    text: |
+      {{ range .Alerts }}
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.description }}
+      *Service:* {{ .Labels.kubernetes_name }}
+      {{ end }}
+
+inhibit_rules:
+- source_match:
+    severity: 'critical'
+  target_match:
+    severity: 'warning'
+  equal: ['alertname', 'cluster', 'service']</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Deployment with Kubernetes</h2>
+                        <p>Complete Kubernetes deployment for the monitoring stack:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">monitoring-stack.yaml</span>
+                            </div>
+                            <pre><code>apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/prometheus
+        - name: storage-volume
+          mountPath: /prometheus
+        args:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+        - '--storage.tsdb.path=/prometheus'
+        - '--web.console.libraries=/etc/prometheus/console_libraries'
+        - '--web.console.templates=/etc/prometheus/consoles'
+        - '--storage.tsdb.retention.time=30d'
+        - '--web.enable-lifecycle'
+      volumes:
+      - name: config-volume
+        configMap:
+          name: prometheus-config
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secret
+              key: admin-password
+        volumeMounts:
+        - name: grafana-storage
+          mountPath: /var/lib/grafana
+      volumes:
+      - name: grafana-storage
+        persistentVolumeClaim:
+          claimName: grafana-pvc</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Best Practices and Lessons Learned</h2>
+                        <div class="highlight-box">
+                            <h3>Key Takeaways</h3>
+                            <ul>
+                                <li><strong>Start with the Four Golden Signals:</strong> Latency, Traffic, Errors, and Saturation</li>
+                                <li><strong>Use Labels Wisely:</strong> Avoid high cardinality labels that can overwhelm Prometheus</li>
+                                <li><strong>Alert Fatigue:</strong> Focus on actionable alerts and use proper severity levels</li>
+                                <li><strong>Dashboard Design:</strong> Create role-specific dashboards for different stakeholders</li>
+                                <li><strong>Retention Policy:</strong> Balance storage costs with data retention requirements</li>
+                                <li><strong>High Availability:</strong> Run Prometheus in HA mode for production environments</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Results and Impact</h2>
+                        <p>The implementation of this comprehensive monitoring solution has significantly improved our operational capabilities:</p>
+                        <ul>
+                            <li><strong>Reduced MTTR:</strong> Mean time to resolution decreased from 45 minutes to 8 minutes</li>
+                            <li><strong>Proactive Issue Detection:</strong> 95% of issues now detected before customer impact</li>
+                            <li><strong>Improved SLA:</strong> Service availability increased from 99.5% to 99.9%</li>
+                            <li><strong>Better Capacity Planning:</strong> Data-driven decisions for resource allocation</li>
+                            <li><strong>Enhanced Developer Experience:</strong> Self-service monitoring capabilities</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Blog Footer -->
+                <footer class="blog-footer">
+                    <div class="blog-author">
+                        <div class="author-info">
+                            <h3>About the Author</h3>
+                            <p>Firman Arya is a DevOps Engineer specializing in observability and monitoring solutions. He has implemented monitoring systems for organizations managing hundreds of microservices in production environments.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-navigation">
+                        <a href="../blogs.html" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i>
+                            See All Blogs
+                        </a>
+                        <div class="share-buttons">
+                            <span>Share this post:</span>
+                            <a href="#" class="share-btn" title="Share on LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="share-btn" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

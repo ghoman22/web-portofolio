@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>How I Built a CI/CD Pipeline Using GitHub Actions | Firman Arya | Portfolio & Blog</title>
+    <meta name="description" content="A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated our deployment process and reduced release cycles from days to minutes.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="../index.html#about" role="menuitem">About</a></li>
+                <li><a href="../index.html#skills" role="menuitem">Skills</a></li>
+                <li><a href="../blogs.html" role="menuitem" class="active">Blogs</a></li>
+                <li><a href="../index.html#contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post">
+            <div class="container">
+                <!-- Blog Navigation -->
+                <nav class="blog-nav">
+                    <a href="../blogs.html" class="back-to-blogs">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to All Blogs</span>
+                    </a>
+                </nav>
+
+                <!-- Blog Header -->
+                <header class="blog-header">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="fas fa-clock"></i>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                    
+                    <h1>How I Built a CI/CD Pipeline Using GitHub Actions</h1>
+                    
+                    <div class="blog-tags">
+                        <span>GitHub Actions</span>
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                        <span>DevOps</span>
+                    </div>
+                </header>
+
+                <!-- Blog Content -->
+                <div class="blog-content">
+                    <div class="blog-intro">
+                        <p class="lead">In today's fast-paced development environment, having an efficient CI/CD pipeline is crucial for delivering software quickly and reliably. In this post, I'll walk you through how I designed and implemented a robust CI/CD pipeline using GitHub Actions that reduced our deployment time from days to minutes.</p>
+                    </div>
+
+                    <section class="content-section">
+                        <h2>The Challenge</h2>
+                        <p>Our development team was facing several challenges with our manual deployment process:</p>
+                        <ul>
+                            <li>Manual deployments taking 2-3 days due to complex coordination</li>
+                            <li>Frequent human errors during the release process</li>
+                            <li>Lack of consistency between environments</li>
+                            <li>No automated testing before production deployments</li>
+                        </ul>
+                        <p>We needed a solution that would automate our entire deployment pipeline while maintaining high quality and security standards.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Architecture Overview</h2>
+                        <p>The CI/CD pipeline I designed follows a multi-stage approach:</p>
+                        <div class="code-block">
+                            <pre><code>┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Source    │───▶│    Build    │───▶│    Test     │───▶│   Deploy    │
+│   Control   │    │   & Package │    │ & Validate  │    │     to      │
+│   (GitHub)  │    │   (Docker)  │    │   (K8s)     │    │ Production  │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>GitHub Actions Workflow</h2>
+                        <p>Here's the complete GitHub Actions workflow that powers our CI/CD pipeline:</p>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">.github/workflows/ci-cd.yml</span>
+                            </div>
+                            <pre><code>name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm run test:coverage
+      
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Deploy to Kubernetes
+        uses: azure/k8s-deploy@v1
+        with:
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main-${{ github.sha }}</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Key Features Implemented</h2>
+                        
+                        <h3>1. Automated Testing</h3>
+                        <p>Every commit triggers a comprehensive test suite including:</p>
+                        <ul>
+                            <li>Unit tests with Jest</li>
+                            <li>Integration tests</li>
+                            <li>Code coverage reporting</li>
+                            <li>Security vulnerability scanning</li>
+                        </ul>
+
+                        <h3>2. Container-Based Deployment</h3>
+                        <p>Using Docker for consistent deployments across environments:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Dockerfile</span>
+                                <span class="code-filename">Dockerfile</span>
+                            </div>
+                            <pre><code>FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+FROM node:18-alpine AS runner
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+WORKDIR /app
+COPY --from=builder --chown=nextjs:nodejs /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+EXPOSE 3000
+CMD ["npm", "start"]</code></pre>
+                        </div>
+
+                        <h3>3. Kubernetes Deployment</h3>
+                        <p>Automated deployment to Kubernetes with rolling updates:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">YAML</span>
+                                <span class="code-filename">k8s/deployment.yaml</span>
+                            </div>
+                            <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: ghcr.io/username/web-app:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Results and Benefits</h2>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-number">95%</div>
+                                <div class="result-label">Reduction in deployment time</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">0</div>
+                                <div class="result-label">Manual deployment errors</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">100%</div>
+                                <div class="result-label">Test coverage requirement</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">24/7</div>
+                                <div class="result-label">Automated monitoring</div>
+                            </div>
+                        </div>
+
+                        <p>The implementation of this CI/CD pipeline has transformed our development workflow:</p>
+                        <ul>
+                            <li><strong>Faster Time to Market:</strong> Features reach production 95% faster</li>
+                            <li><strong>Higher Quality:</strong> Automated testing catches issues before deployment</li>
+                            <li><strong>Better Developer Experience:</strong> Developers can focus on coding instead of deployment logistics</li>
+                            <li><strong>Improved Reliability:</strong> Consistent, repeatable deployments reduce downtime</li>
+                        </ul>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Lessons Learned</h2>
+                        <div class="highlight-box">
+                            <h3>Key Takeaways</h3>
+                            <ul>
+                                <li>Start simple and iterate - don't try to build the perfect pipeline from day one</li>
+                                <li>Security should be built into the pipeline, not added as an afterthought</li>
+                                <li>Monitor everything - you can't improve what you don't measure</li>
+                                <li>Documentation is crucial for team adoption and maintenance</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Next Steps</h2>
+                        <p>Looking ahead, we're planning to enhance our pipeline with:</p>
+                        <ul>
+                            <li>Automated security scanning with tools like Snyk</li>
+                            <li>Performance testing integration</li>
+                            <li>Multi-environment promotion workflows</li>
+                            <li>Advanced monitoring and alerting with Prometheus</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Blog Footer -->
+                <footer class="blog-footer">
+                    <div class="blog-author">
+                        <div class="author-info">
+                            <h3>About the Author</h3>
+                            <p>Firman Arya is a DevOps Engineer with expertise in cloud infrastructure, automation, and CI/CD pipelines. He specializes in building scalable systems that help teams deliver software faster and more reliably.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-navigation">
+                        <a href="../blogs.html" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i>
+                            See All Blogs
+                        </a>
+                        <div class="share-buttons">
+                            <span>Share this post:</span>
+                            <a href="#" class="share-btn" title="Share on LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="share-btn" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

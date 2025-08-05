@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Deploying Infrastructure on AWS with Terraform | Firman Arya | Portfolio & Blog</title>
+    <meta name="description" content="Learn how to provision secure, scalable cloud infrastructure using Infrastructure as Code principles with Terraform, including best practices and common pitfalls to avoid.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="../index.html#about" role="menuitem">About</a></li>
+                <li><a href="../index.html#skills" role="menuitem">Skills</a></li>
+                <li><a href="../blogs.html" role="menuitem" class="active">Blogs</a></li>
+                <li><a href="../index.html#contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post">
+            <div class="container">
+                <!-- Blog Navigation -->
+                <nav class="blog-nav">
+                    <a href="../blogs.html" class="back-to-blogs">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to All Blogs</span>
+                    </a>
+                </nav>
+
+                <!-- Blog Header -->
+                <header class="blog-header">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 10, 2024</span>
+                        </div>
+                        <div class="reading-time">
+                            <i class="fas fa-clock"></i>
+                            <span>12 min read</span>
+                        </div>
+                    </div>
+                    
+                    <h1>Deploying Infrastructure on AWS with Terraform</h1>
+                    
+                    <div class="blog-tags">
+                        <span>Terraform</span>
+                        <span>AWS</span>
+                        <span>IaC</span>
+                        <span>Cloud</span>
+                    </div>
+                </header>
+
+                <!-- Blog Content -->
+                <div class="blog-content">
+                    <div class="blog-intro">
+                        <p class="lead">Infrastructure as Code (IaC) has revolutionized how we manage cloud resources. In this comprehensive guide, I'll show you how to deploy secure, scalable infrastructure on AWS using Terraform, sharing best practices learned from managing production environments.</p>
+                    </div>
+
+                    <section class="content-section">
+                        <h2>Why Infrastructure as Code?</h2>
+                        <p>Traditional infrastructure management through the AWS console or CLI has several limitations:</p>
+                        <ul>
+                            <li>Manual processes are error-prone and time-consuming</li>
+                            <li>Difficult to track changes and maintain consistency</li>
+                            <li>No version control for infrastructure changes</li>
+                            <li>Hard to replicate environments</li>
+                        </ul>
+                        <p>Terraform solves these problems by allowing us to define infrastructure as code, making it reproducible, version-controlled, and auditable.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Project Structure</h2>
+                        <p>A well-organized Terraform project structure is crucial for maintainability:</p>
+                        <div class="code-block">
+                            <pre><code>terraform-aws-infrastructure/
+├── environments/
+│   ├── dev/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── terraform.tfvars
+│   ├── staging/
+│   └── production/
+├── modules/
+│   ├── vpc/
+│   ├── ec2/
+│   ├── rds/
+│   └── s3/
+├── scripts/
+└── README.md</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Setting Up the Foundation</h2>
+                        
+                        <h3>Provider Configuration</h3>
+                        <p>Start by configuring the AWS provider with proper version constraints:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">main.tf</span>
+                            </div>
+                            <pre><code>terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "infrastructure/terraform.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+  
+  default_tags {
+    tags = {
+      Project     = var.project_name
+      Environment = var.environment
+      ManagedBy   = "Terraform"
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <h3>VPC Module</h3>
+                        <p>Create a reusable VPC module for network infrastructure:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">modules/vpc/main.tf</span>
+                            </div>
+                            <pre><code>resource "aws_vpc" "main" {
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name = "${var.project_name}-vpc"
+  }
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.project_name}-igw"
+  }
+}
+
+resource "aws_subnet" "public" {
+  count = length(var.public_subnet_cidrs)
+
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnet_cidrs[count.index]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.project_name}-public-subnet-${count.index + 1}"
+    Type = "Public"
+  }
+}
+
+resource "aws_subnet" "private" {
+  count = length(var.private_subnet_cidrs)
+
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_cidrs[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+
+  tags = {
+    Name = "${var.project_name}-private-subnet-${count.index + 1}"
+    Type = "Private"
+  }
+}
+
+resource "aws_nat_gateway" "main" {
+  count = length(aws_subnet.public)
+
+  allocation_id = aws_eip.nat[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+
+  tags = {
+    Name = "${var.project_name}-nat-gateway-${count.index + 1}"
+  }
+
+  depends_on = [aws_internet_gateway.main]
+}
+
+resource "aws_eip" "nat" {
+  count = length(aws_subnet.public)
+
+  domain = "vpc"
+
+  tags = {
+    Name = "${var.project_name}-nat-eip-${count.index + 1}"
+  }
+}</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Security Best Practices</h2>
+                        
+                        <h3>Security Groups</h3>
+                        <p>Implement least-privilege access with security groups:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">modules/security/main.tf</span>
+                            </div>
+                            <pre><code>resource "aws_security_group" "web" {
+  name_prefix = "${var.project_name}-web-"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-web-sg"
+  }
+}
+
+resource "aws_security_group" "database" {
+  name_prefix = "${var.project_name}-db-"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description     = "MySQL/Aurora"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.web.id]
+  }
+
+  tags = {
+    Name = "${var.project_name}-db-sg"
+  }
+}</code></pre>
+                        </div>
+
+                        <h3>IAM Roles and Policies</h3>
+                        <p>Create IAM roles with minimal required permissions:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">modules/iam/main.tf</span>
+                            </div>
+                            <pre><code>resource "aws_iam_role" "ec2_role" {
+  name = "${var.project_name}-ec2-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "s3_access" {
+  name        = "${var.project_name}-s3-access"
+  description = "Policy for S3 access"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "${aws_s3_bucket.app_bucket.arn}/*"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "s3_access" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = aws_iam_policy.s3_access.arn
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "${var.project_name}-ec2-profile"
+  role = aws_iam_role.ec2_role.name
+}</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Auto Scaling and Load Balancing</h2>
+                        <p>Implement auto-scaling for high availability:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">modules/autoscaling/main.tf</span>
+                            </div>
+                            <pre><code>resource "aws_launch_template" "web" {
+  name_prefix   = "${var.project_name}-web-"
+  image_id      = data.aws_ami.amazon_linux.id
+  instance_type = var.instance_type
+
+  vpc_security_group_ids = [var.security_group_id]
+  iam_instance_profile {
+    name = var.instance_profile_name
+  }
+
+  user_data = base64encode(templatefile("${path.module}/user_data.sh", {
+    project_name = var.project_name
+  }))
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "${var.project_name}-web-server"
+    }
+  }
+}
+
+resource "aws_autoscaling_group" "web" {
+  name                = "${var.project_name}-asg"
+  vpc_zone_identifier = var.subnet_ids
+  target_group_arns   = [aws_lb_target_group.web.arn]
+  health_check_type   = "ELB"
+
+  min_size         = var.min_size
+  max_size         = var.max_size
+  desired_capacity = var.desired_capacity
+
+  launch_template {
+    id      = aws_launch_template.web.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.project_name}-asg"
+    propagate_at_launch = false
+  }
+}
+
+resource "aws_lb" "web" {
+  name               = "${var.project_name}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [var.alb_security_group_id]
+  subnets            = var.public_subnet_ids
+
+  enable_deletion_protection = var.environment == "production"
+}
+
+resource "aws_lb_target_group" "web" {
+  name     = "${var.project_name}-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    interval            = 30
+    matcher             = "200"
+    path                = "/health"
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    timeout             = 5
+    unhealthy_threshold = 2
+  }
+}
+
+resource "aws_lb_listener" "web" {
+  load_balancer_arn = aws_lb.web.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.web.arn
+  }
+}</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Database Configuration</h2>
+                        <p>Set up RDS with proper backup and security configurations:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">HCL</span>
+                                <span class="code-filename">modules/rds/main.tf</span>
+                            </div>
+                            <pre><code>resource "aws_db_subnet_group" "main" {
+  name       = "${var.project_name}-db-subnet-group"
+  subnet_ids = var.private_subnet_ids
+
+  tags = {
+    Name = "${var.project_name}-db-subnet-group"
+  }
+}
+
+resource "aws_db_parameter_group" "main" {
+  family = "mysql8.0"
+  name   = "${var.project_name}-db-params"
+
+  parameter {
+    name  = "innodb_buffer_pool_size"
+    value = "{DBInstanceClassMemory*3/4}"
+  }
+}
+
+resource "aws_db_instance" "main" {
+  identifier = "${var.project_name}-database"
+
+  allocated_storage     = var.allocated_storage
+  max_allocated_storage = var.max_allocated_storage
+  storage_type          = "gp3"
+  storage_encrypted     = true
+
+  engine         = "mysql"
+  engine_version = "8.0"
+  instance_class = var.instance_class
+
+  db_name  = var.database_name
+  username = var.database_username
+  password = var.database_password
+
+  vpc_security_group_ids = [var.database_security_group_id]
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  parameter_group_name   = aws_db_parameter_group.main.name
+
+  backup_retention_period = var.backup_retention_period
+  backup_window          = "03:00-04:00"
+  maintenance_window     = "sun:04:00-sun:05:00"
+
+  skip_final_snapshot = var.environment != "production"
+  deletion_protection = var.environment == "production"
+
+  tags = {
+    Name = "${var.project_name}-database"
+  }
+}</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Deployment and Management</h2>
+                        
+                        <h3>Terraform Commands</h3>
+                        <p>Essential commands for managing your infrastructure:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Bash</span>
+                                <span class="code-filename">deployment.sh</span>
+                            </div>
+                            <pre><code># Initialize Terraform
+terraform init
+
+# Plan changes
+terraform plan -var-file="terraform.tfvars"
+
+# Apply changes
+terraform apply -var-file="terraform.tfvars"
+
+# Destroy infrastructure (use with caution)
+terraform destroy -var-file="terraform.tfvars"
+
+# Format code
+terraform fmt -recursive
+
+# Validate configuration
+terraform validate</code></pre>
+                        </div>
+
+                        <h3>State Management</h3>
+                        <p>Best practices for managing Terraform state:</p>
+                        <ul>
+                            <li>Always use remote state storage (S3 + DynamoDB)</li>
+                            <li>Enable state locking to prevent concurrent modifications</li>
+                            <li>Use separate state files for different environments</li>
+                            <li>Implement proper backup strategies for state files</li>
+                        </ul>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Monitoring and Observability</h2>
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-number">99.9%</div>
+                                <div class="result-label">Infrastructure uptime</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">80%</div>
+                                <div class="result-label">Faster deployments</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">0</div>
+                                <div class="result-label">Configuration drift</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-number">100%</div>
+                                <div class="result-label">Infrastructure as code</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Common Pitfalls and Solutions</h2>
+                        <div class="highlight-box">
+                            <h3>Lessons Learned</h3>
+                            <ul>
+                                <li><strong>State Management:</strong> Always use remote state and enable locking</li>
+                                <li><strong>Resource Dependencies:</strong> Use explicit depends_on when implicit dependencies aren't clear</li>
+                                <li><strong>Secrets Management:</strong> Never store secrets in Terraform files - use AWS Secrets Manager</li>
+                                <li><strong>Environment Separation:</strong> Use separate state files and workspaces for different environments</li>
+                                <li><strong>Resource Naming:</strong> Use consistent naming conventions with prefixes/suffixes</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Blog Footer -->
+                <footer class="blog-footer">
+                    <div class="blog-author">
+                        <div class="author-info">
+                            <h3>About the Author</h3>
+                            <p>Firman Arya is a DevOps Engineer with extensive experience in cloud infrastructure and Infrastructure as Code. He has successfully deployed and managed production environments on AWS using Terraform for multiple organizations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-navigation">
+                        <a href="../blogs.html" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i>
+                            See All Blogs
+                        </a>
+                        <div class="share-buttons">
+                            <span>Share this post:</span>
+                            <a href="#" class="share-btn" title="Share on LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="share-btn" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

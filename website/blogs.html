@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>All Blogs | Firman Arya | Portfolio & Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="index.html#about" role="menuitem">About</a></li>
+                <li><a href="index.html#skills" role="menuitem">Skills</a></li>
+                <li><a href="blogs.html" role="menuitem" class="active">Blogs</a></li>
+                <li><a href="index.html#contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="blog-listing-hero">
+            <div class="container">
+                <div class="blog-listing-header">
+                    <h1>All Blog Posts</h1>
+                    <p class="blog-listing-subtitle">Insights, tutorials, and deep dives into DevOps, cloud infrastructure, and automation</p>
+                    
+                    <!-- Search and Filter Bar -->
+                    <div class="blog-search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="blogSearch" placeholder="Search blogs..." aria-label="Search blogs">
+                        </div>
+                        <div class="filter-tags">
+                            <button class="filter-tag active" data-filter="all">All</button>
+                            <button class="filter-tag" data-filter="devops">DevOps</button>
+                            <button class="filter-tag" data-filter="aws">AWS</button>
+                            <button class="filter-tag" data-filter="kubernetes">Kubernetes</button>
+                            <button class="filter-tag" data-filter="monitoring">Monitoring</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-listing">
+            <div class="container">
+                <div class="blog-grid" id="blogGrid">
+                    <!-- Blog Card 1 -->
+                    <article class="blog-card" data-tags="devops kubernetes docker github-actions">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <h3><a href="blog/ci-cd-pipeline-github-actions.html">How I Built a CI/CD Pipeline Using GitHub Actions</a></h3>
+                        <p class="blog-excerpt">A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated our deployment process and reduced release cycles from days to minutes.</p>
+                        <div class="blog-tags">
+                            <span>GitHub Actions</span>
+                            <span>Docker</span>
+                            <span>Kubernetes</span>
+                            <span>DevOps</span>
+                        </div>
+                        <a href="blog/ci-cd-pipeline-github-actions.html" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+
+                    <!-- Blog Card 2 -->
+                    <article class="blog-card" data-tags="aws terraform iac cloud">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 10, 2024</span>
+                        </div>
+                        <h3><a href="blog/aws-terraform-infrastructure.html">Deploying Infrastructure on AWS with Terraform</a></h3>
+                        <p class="blog-excerpt">Learn how to provision secure, scalable cloud infrastructure using Infrastructure as Code principles with Terraform, including best practices and common pitfalls to avoid.</p>
+                        <div class="blog-tags">
+                            <span>Terraform</span>
+                            <span>AWS</span>
+                            <span>IaC</span>
+                            <span>Cloud</span>
+                        </div>
+                        <a href="blog/aws-terraform-infrastructure.html" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+
+                    <!-- Blog Card 3 -->
+                    <article class="blog-card" data-tags="prometheus grafana monitoring observability">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>December 5, 2024</span>
+                        </div>
+                        <h3><a href="blog/prometheus-grafana-monitoring.html">Monitoring 50+ Services with Prometheus & Grafana</a></h3>
+                        <p class="blog-excerpt">Building a comprehensive monitoring and alerting system that provides real-time visibility into application performance and infrastructure health across distributed systems.</p>
+                        <div class="blog-tags">
+                            <span>Prometheus</span>
+                            <span>Grafana</span>
+                            <span>Monitoring</span>
+                            <span>Observability</span>
+                        </div>
+                        <a href="blog/prometheus-grafana-monitoring.html" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+
+                    <!-- Additional Blog Cards for demonstration -->
+                    <article class="blog-card" data-tags="docker containerization devops">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 28, 2024</span>
+                        </div>
+                        <h3><a href="#">Containerizing Legacy Applications with Docker</a></h3>
+                        <p class="blog-excerpt">A step-by-step guide to modernizing legacy applications through containerization, including strategies for handling dependencies and data persistence.</p>
+                        <div class="blog-tags">
+                            <span>Docker</span>
+                            <span>Containerization</span>
+                            <span>Legacy Apps</span>
+                            <span>DevOps</span>
+                        </div>
+                        <a href="#" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+
+                    <article class="blog-card" data-tags="kubernetes helm deployment">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 20, 2024</span>
+                        </div>
+                        <h3><a href="#">Kubernetes Deployment Strategies with Helm</a></h3>
+                        <p class="blog-excerpt">Exploring different deployment strategies in Kubernetes using Helm charts, including blue-green deployments, canary releases, and rolling updates.</p>
+                        <div class="blog-tags">
+                            <span>Kubernetes</span>
+                            <span>Helm</span>
+                            <span>Deployment</span>
+                            <span>DevOps</span>
+                        </div>
+                        <a href="#" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+
+                    <article class="blog-card" data-tags="aws security iam">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>November 15, 2024</span>
+                        </div>
+                        <h3><a href="#">AWS Security Best Practices with IAM</a></h3>
+                        <p class="blog-excerpt">Comprehensive guide to implementing security best practices in AWS using Identity and Access Management, including least privilege principles and policy optimization.</p>
+                        <div class="blog-tags">
+                            <span>AWS</span>
+                            <span>Security</span>
+                            <span>IAM</span>
+                            <span>Cloud</span>
+                        </div>
+                        <a href="#" class="read-more-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            Read More
+                        </a>
+                    </article>
+                </div>
+
+                <!-- No results message -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No blogs found</h3>
+                    <p>Try adjusting your search terms or filters</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="blog-listing.js"></script>
+</body>
+
+</html>
