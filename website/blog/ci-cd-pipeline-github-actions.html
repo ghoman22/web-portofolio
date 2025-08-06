@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 
 <body class="dark">
@@ -49,79 +50,200 @@
     </header>
 
     <main>
-        <article class="blog-post">
-            <div class="container">
+        <article class="blog-post-redesigned">
+            <div class="blog-container">
                 <!-- Blog Navigation -->
-                <nav class="blog-nav">
-                    <a href="../blogs.html" class="back-to-blogs">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Back to All Blogs</span>
+                <nav class="blog-breadcrumb">
+                    <a href="../index.html" class="breadcrumb-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
                     </a>
+                    <i class="fas fa-chevron-right breadcrumb-separator"></i>
+                    <a href="../blogs.html" class="breadcrumb-link">
+                        <i class="fas fa-blog"></i>
+                        <span>Blogs</span>
+                    </a>
+                    <i class="fas fa-chevron-right breadcrumb-separator"></i>
+                    <span class="breadcrumb-current">CI/CD Pipeline</span>
                 </nav>
 
-                <!-- Blog Header -->
-                <header class="blog-header">
-                    <div class="blog-meta">
-                        <div class="blog-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>December 15, 2024</span>
-                        </div>
-                        <div class="reading-time">
-                            <i class="fas fa-clock"></i>
-                            <span>8 min read</span>
-                        </div>
-                    </div>
-                    
-                    <h1>How I Built a CI/CD Pipeline Using GitHub Actions</h1>
-                    
-                    <div class="blog-tags">
-                        <span>GitHub Actions</span>
-                        <span>Docker</span>
-                        <span>Kubernetes</span>
-                        <span>DevOps</span>
-                    </div>
-                </header>
-
-                <!-- Blog Content -->
-                <div class="blog-content">
-                    <div class="blog-intro">
-                        <p class="lead">In today's fast-paced development environment, having an efficient CI/CD pipeline is crucial for delivering software quickly and reliably. In this post, I'll walk you through how I designed and implemented a robust CI/CD pipeline using GitHub Actions that reduced our deployment time from days to minutes.</p>
-                    </div>
-
-                    <section class="content-section">
-                        <h2>The Challenge</h2>
-                        <p>Our development team was facing several challenges with our manual deployment process:</p>
-                        <ul>
-                            <li>Manual deployments taking 2-3 days due to complex coordination</li>
-                            <li>Frequent human errors during the release process</li>
-                            <li>Lack of consistency between environments</li>
-                            <li>No automated testing before production deployments</li>
-                        </ul>
-                        <p>We needed a solution that would automate our entire deployment pipeline while maintaining high quality and security standards.</p>
-                    </section>
-
-                    <section class="content-section">
-                        <h2>Architecture Overview</h2>
-                        <p>The CI/CD pipeline I designed follows a multi-stage approach:</p>
-                        <div class="code-block">
-                            <pre><code>┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Source    │───▶│    Build    │───▶│    Test     │───▶│   Deploy    │
-│   Control   │    │   & Package │    │ & Validate  │    │     to      │
-│   (GitHub)  │    │   (Docker)  │    │   (K8s)     │    │ Production  │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘</code></pre>
-                        </div>
-                    </section>
-
-                    <section class="content-section">
-                        <h2>GitHub Actions Workflow</h2>
-                        <p>Here's the complete GitHub Actions workflow that powers our CI/CD pipeline:</p>
-                        
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span class="code-language">YAML</span>
-                                <span class="code-filename">.github/workflows/ci-cd.yml</span>
+                <!-- Blog Layout -->
+                <div class="blog-layout">
+                    <!-- Main Content -->
+                    <div class="blog-main-content">
+                        <!-- Blog Header -->
+                        <header class="blog-header-redesigned">
+                            <div class="blog-category">
+                                <i class="fas fa-cogs"></i>
+                                <span>DevOps & Automation</span>
                             </div>
-                            <pre><code>name: CI/CD Pipeline
+                            
+                            <h1>How I Built a CI/CD Pipeline Using GitHub Actions</h1>
+                            
+                            <div class="blog-meta-redesigned">
+                                <div class="blog-author-meta">
+                                    <div class="author-avatar">
+                                        <i class="fas fa-user-circle"></i>
+                                    </div>
+                                    <div class="author-details">
+                                        <span class="author-name">Firman Arya</span>
+                                        <span class="author-title">DevOps Engineer</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="blog-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>December 15, 2024</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>8 min read</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-eye"></i>
+                                        <span>1.2k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="blog-tags-redesigned">
+                                <span class="tag">GitHub Actions</span>
+                                <span class="tag">Docker</span>
+                                <span class="tag">Kubernetes</span>
+                                <span class="tag">DevOps</span>
+                            </div>
+                        </header>
+
+                        <!-- Blog Content -->
+                        <div class="blog-content-redesigned">
+                            <div class="content-intro">
+                                <div class="intro-highlight">
+                                    <i class="fas fa-lightbulb intro-icon"></i>
+                                    <p class="lead">In today's fast-paced development environment, having an efficient CI/CD pipeline is crucial for delivering software quickly and reliably. In this post, I'll walk you through how I designed and implemented a robust CI/CD pipeline using GitHub Actions that reduced our deployment time from days to minutes.</p>
+                                </div>
+                            </div>
+
+                            <section class="content-section-redesigned" id="challenge">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">01</span>
+                                        The Challenge
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <p>Our development team was facing several challenges with our manual deployment process:</p>
+                                    <div class="challenge-list">
+                                        <div class="challenge-item">
+                                            <i class="fas fa-exclamation-triangle challenge-icon"></i>
+                                            <div class="challenge-text">
+                                                <h4>Slow Deployments</h4>
+                                                <p>Manual deployments taking 2-3 days due to complex coordination</p>
+                                            </div>
+                                        </div>
+                                        <div class="challenge-item">
+                                            <i class="fas fa-bug challenge-icon"></i>
+                                            <div class="challenge-text">
+                                                <h4>Human Errors</h4>
+                                                <p>Frequent mistakes during the release process</p>
+                                            </div>
+                                        </div>
+                                        <div class="challenge-item">
+                                            <i class="fas fa-random challenge-icon"></i>
+                                            <div class="challenge-text">
+                                                <h4>Environment Inconsistency</h4>
+                                                <p>Lack of consistency between different environments</p>
+                                            </div>
+                                        </div>
+                                        <div class="challenge-item">
+                                            <i class="fas fa-shield-alt challenge-icon"></i>
+                                            <div class="challenge-text">
+                                                <h4>No Testing</h4>
+                                                <p>No automated testing before production deployments</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="solution-box">
+                                        <h4><i class="fas fa-target"></i> Solution Goal</h4>
+                                        <p>We needed a solution that would automate our entire deployment pipeline while maintaining high quality and security standards.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="content-section-redesigned" id="architecture">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">02</span>
+                                        Architecture Overview
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <p>The CI/CD pipeline I designed follows a multi-stage approach with clear separation of concerns:</p>
+                                    <div class="architecture-diagram">
+                                        <div class="pipeline-stage">
+                                            <div class="stage-icon">
+                                                <i class="fab fa-github"></i>
+                                            </div>
+                                            <h4>Source Control</h4>
+                                            <p>GitHub Repository</p>
+                                        </div>
+                                        <div class="pipeline-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                        <div class="pipeline-stage">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-hammer"></i>
+                                            </div>
+                                            <h4>Build & Package</h4>
+                                            <p>Docker Container</p>
+                                        </div>
+                                        <div class="pipeline-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                        <div class="pipeline-stage">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-vial"></i>
+                                            </div>
+                                            <h4>Test & Validate</h4>
+                                            <p>Automated Testing</p>
+                                        </div>
+                                        <div class="pipeline-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                        <div class="pipeline-stage">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-rocket"></i>
+                                            </div>
+                                            <h4>Deploy</h4>
+                                            <p>Kubernetes Cluster</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="content-section-redesigned" id="workflow">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">03</span>
+                                        GitHub Actions Workflow
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <p>Here's the complete GitHub Actions workflow that powers our CI/CD pipeline:</p>
+                                    
+                                    <div class="code-block-redesigned">
+                                        <div class="code-header-redesigned">
+                                            <div class="code-info">
+                                                <span class="code-language">YAML</span>
+                                                <span class="code-filename">.github/workflows/ci-cd.yml</span>
+                                            </div>
+                                            <button class="copy-code-btn" onclick="copyCode(this)">
+                                                <i class="fas fa-copy"></i>
+                                                <span>Copy</span>
+                                            </button>
+                                        </div>
+                                        <div class="code-content">
+                                            <pre><code class="language-yaml">name: CI/CD Pipeline
 
 on:
   push:
@@ -204,183 +326,366 @@ jobs:
             k8s/service.yaml
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main-${{ github.sha }}</code></pre>
-                        </div>
-                    </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-                    <section class="content-section">
-                        <h2>Key Features Implemented</h2>
-                        
-                        <h3>1. Automated Testing</h3>
-                        <p>Every commit triggers a comprehensive test suite including:</p>
-                        <ul>
-                            <li>Unit tests with Jest</li>
-                            <li>Integration tests</li>
-                            <li>Code coverage reporting</li>
-                            <li>Security vulnerability scanning</li>
-                        </ul>
+                            <section class="content-section-redesigned" id="features">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">04</span>
+                                        Key Features Implemented
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <div class="features-grid">
+                                        <div class="feature-card">
+                                            <div class="feature-icon">
+                                                <i class="fas fa-vial"></i>
+                                            </div>
+                                            <h3>Automated Testing</h3>
+                                            <p>Comprehensive test suite running on every commit</p>
+                                            <div class="feature-details">
+                                                <ul>
+                                                    <li>Unit tests with Jest</li>
+                                                    <li>Integration tests</li>
+                                                    <li>Code coverage reporting</li>
+                                                    <li>Security vulnerability scanning</li>
+                                                </ul>
+                                            </div>
+                                        </div>
 
-                        <h3>2. Container-Based Deployment</h3>
-                        <p>Using Docker for consistent deployments across environments:</p>
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span class="code-language">Dockerfile</span>
-                                <span class="code-filename">Dockerfile</span>
-                            </div>
-                            <pre><code>FROM node:18-alpine AS builder
-
+                                        <div class="feature-card">
+                                            <div class="feature-icon">
+                                                <i class="fab fa-docker"></i>
+                                            </div>
+                                            <h3>Container-Based Deployment</h3>
+                                            <p>Using Docker for consistent deployments across environments</p>
+                                            <div class="feature-details">
+                                                <div class="code-block-small">
+                                                    <pre><code class="language-dockerfile">FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --only=production</code></pre>
+                                                </div>
+                                            </div>
+                                        </div>
 
-COPY . .
-RUN npm run build
+                                        <div class="feature-card">
+                                            <div class="feature-icon">
+                                                <i class="fas fa-dharmachakra"></i>
+                                            </div>
+                                            <h3>Kubernetes Deployment</h3>
+                                            <p>Automated deployment with rolling updates and health checks</p>
+                                            <div class="feature-details">
+                                                <ul>
+                                                    <li>Rolling update strategy</li>
+                                                    <li>Health checks & probes</li>
+                                                    <li>Auto-scaling capabilities</li>
+                                                    <li>Service discovery</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-FROM node:18-alpine AS runner
+                            <section class="content-section-redesigned" id="results">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">05</span>
+                                        Results and Benefits
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <div class="results-showcase">
+                                        <div class="result-metric">
+                                            <div class="metric-value">95%</div>
+                                            <div class="metric-label">Reduction in deployment time</div>
+                                            <div class="metric-description">From 2-3 days to 15 minutes</div>
+                                        </div>
+                                        <div class="result-metric">
+                                            <div class="metric-value">0</div>
+                                            <div class="metric-label">Manual deployment errors</div>
+                                            <div class="metric-description">Eliminated human mistakes</div>
+                                        </div>
+                                        <div class="result-metric">
+                                            <div class="metric-value">100%</div>
+                                            <div class="metric-label">Test coverage requirement</div>
+                                            <div class="metric-description">Every deployment tested</div>
+                                        </div>
+                                        <div class="result-metric">
+                                            <div class="metric-value">24/7</div>
+                                            <div class="metric-label">Automated monitoring</div>
+                                            <div class="metric-description">Continuous health checks</div>
+                                        </div>
+                                    </div>
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+                                    <div class="benefits-list">
+                                        <h3><i class="fas fa-trophy"></i> Key Benefits Achieved</h3>
+                                        <div class="benefit-item">
+                                            <i class="fas fa-rocket benefit-icon"></i>
+                                            <div>
+                                                <h4>Faster Time to Market</h4>
+                                                <p>Features reach production 95% faster with automated deployments</p>
+                                            </div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <i class="fas fa-shield-check benefit-icon"></i>
+                                            <div>
+                                                <h4>Higher Quality</h4>
+                                                <p>Automated testing catches issues before they reach production</p>
+                                            </div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <i class="fas fa-smile benefit-icon"></i>
+                                            <div>
+                                                <h4>Better Developer Experience</h4>
+                                                <p>Developers focus on coding instead of deployment logistics</p>
+                                            </div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <i class="fas fa-heartbeat benefit-icon"></i>
+                                            <div>
+                                                <h4>Improved Reliability</h4>
+                                                <p>Consistent, repeatable deployments reduce system downtime</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-WORKDIR /app
-COPY --from=builder --chown=nextjs:nodejs /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+                            <section class="content-section-redesigned" id="lessons">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">06</span>
+                                        Lessons Learned
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <div class="lessons-container">
+                                        <div class="lesson-card">
+                                            <div class="lesson-icon">
+                                                <i class="fas fa-seedling"></i>
+                                            </div>
+                                            <h4>Start Simple, Iterate</h4>
+                                            <p>Don't try to build the perfect pipeline from day one. Begin with basic automation and gradually add complexity.</p>
+                                        </div>
+                                        <div class="lesson-card">
+                                            <div class="lesson-icon">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <h4>Security First</h4>
+                                            <p>Build security into the pipeline from the beginning, not as an afterthought. Use secrets management and vulnerability scanning.</p>
+                                        </div>
+                                        <div class="lesson-card">
+                                            <div class="lesson-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <h4>Monitor Everything</h4>
+                                            <p>You can't improve what you don't measure. Implement comprehensive monitoring and alerting from the start.</p>
+                                        </div>
+                                        <div class="lesson-card">
+                                            <div class="lesson-icon">
+                                                <i class="fas fa-book"></i>
+                                            </div>
+                                            <h4>Documentation Matters</h4>
+                                            <p>Clear documentation is crucial for team adoption, troubleshooting, and long-term maintenance.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
 
-USER nextjs
-EXPOSE 3000
-CMD ["npm", "start"]</code></pre>
+                            <section class="content-section-redesigned" id="next-steps">
+                                <div class="section-header">
+                                    <h2>
+                                        <span class="section-number">07</span>
+                                        Next Steps
+                                    </h2>
+                                </div>
+                                <div class="section-content">
+                                    <div class="roadmap-container">
+                                        <h3><i class="fas fa-road"></i> Future Enhancements</h3>
+                                        <div class="roadmap-items">
+                                            <div class="roadmap-item">
+                                                <div class="roadmap-status planned">Planned</div>
+                                                <h4>Advanced Security Scanning</h4>
+                                                <p>Integrate tools like Snyk and SonarQube for comprehensive security analysis</p>
+                                            </div>
+                                            <div class="roadmap-item">
+                                                <div class="roadmap-status in-progress">In Progress</div>
+                                                <h4>Performance Testing</h4>
+                                                <p>Add automated performance testing with load testing and benchmarking</p>
+                                            </div>
+                                            <div class="roadmap-item">
+                                                <div class="roadmap-status planned">Planned</div>
+                                                <h4>Multi-Environment Workflows</h4>
+                                                <p>Implement promotion workflows across dev, staging, and production environments</p>
+                                            </div>
+                                            <div class="roadmap-item">
+                                                <div class="roadmap-status research">Research</div>
+                                                <h4>Advanced Monitoring</h4>
+                                                <p>Enhanced monitoring and alerting with Prometheus, Grafana, and custom dashboards</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
 
-                        <h3>3. Kubernetes Deployment</h3>
-                        <p>Automated deployment to Kubernetes with rolling updates:</p>
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span class="code-language">YAML</span>
-                                <span class="code-filename">k8s/deployment.yaml</span>
+                        <!-- Blog Footer -->
+                        <footer class="blog-footer-redesigned">
+                            <div class="blog-actions">
+                                <div class="action-buttons">
+                                    <button class="action-btn like-btn">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Like</span>
+                                        <span class="count">42</span>
+                                    </button>
+                                    <button class="action-btn bookmark-btn">
+                                        <i class="fas fa-bookmark"></i>
+                                        <span>Bookmark</span>
+                                    </button>
+                                    <button class="action-btn share-btn">
+                                        <i class="fas fa-share"></i>
+                                        <span>Share</span>
+                                    </button>
+                                </div>
                             </div>
-                            <pre><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-app
-  labels:
-    app: web-app
-spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
-  selector:
-    matchLabels:
-      app: web-app
-  template:
-    metadata:
-      labels:
-        app: web-app
-    spec:
-      containers:
-      - name: web-app
-        image: ghcr.io/username/web-app:latest
-        ports:
-        - containerPort: 3000
-        env:
-        - name: NODE_ENV
-          value: "production"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5</code></pre>
+                            
+                            <div class="author-section">
+                                <div class="author-card">
+                                    <div class="author-avatar-large">
+                                        <i class="fas fa-user-circle"></i>
+                                    </div>
+                                    <div class="author-info">
+                                        <h3>Firman Arya</h3>
+                                        <p class="author-role">DevOps Engineer</p>
+                                        <p class="author-bio">Passionate about building scalable infrastructure and engineering CI/CD pipelines that help teams deliver software faster and more reliably. Specializing in cloud-native technologies and automation.</p>
+                                        <div class="author-links">
+                                            <a href="https://www.linkedin.com/in/firmanaryapradhana/" class="author-link">
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                            <a href="https://github.com/ghoman22" class="author-link">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                            <a href="mailto:firmanap22@gmail.com" class="author-link">
+                                                <i class="fas fa-envelope"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="blog-navigation-redesigned">
+                                <a href="../blogs.html" class="nav-btn primary">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>See All Blogs</span>
+                                </a>
+                                <div class="share-options">
+                                    <span>Share this post:</span>
+                                    <div class="social-share">
+                                        <a href="#" class="social-btn linkedin" title="Share on LinkedIn">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                        <a href="#" class="social-btn twitter" title="Share on Twitter">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="social-btn facebook" title="Share on Facebook">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="blog-sidebar">
+                        <div class="sidebar-sticky">
+                            <!-- Table of Contents -->
+                            <div class="sidebar-section">
+                                <h3><i class="fas fa-list"></i> Table of Contents</h3>
+                                <nav class="table-of-contents">
+                                    <a href="#challenge" class="toc-link active">
+                                        <span class="toc-number">01</span>
+                                        <span>The Challenge</span>
+                                    </a>
+                                    <a href="#architecture" class="toc-link">
+                                        <span class="toc-number">02</span>
+                                        <span>Architecture Overview</span>
+                                    </a>
+                                    <a href="#workflow" class="toc-link">
+                                        <span class="toc-number">03</span>
+                                        <span>GitHub Actions Workflow</span>
+                                    </a>
+                                    <a href="#features" class="toc-link">
+                                        <span class="toc-number">04</span>
+                                        <span>Key Features</span>
+                                    </a>
+                                    <a href="#results" class="toc-link">
+                                        <span class="toc-number">05</span>
+                                        <span>Results & Benefits</span>
+                                    </a>
+                                    <a href="#lessons" class="toc-link">
+                                        <span class="toc-number">06</span>
+                                        <span>Lessons Learned</span>
+                                    </a>
+                                    <a href="#next-steps" class="toc-link">
+                                        <span class="toc-number">07</span>
+                                        <span>Next Steps</span>
+                                    </a>
+                                </nav>
+                            </div>
+
+                            <!-- Reading Progress -->
+                            <div class="sidebar-section">
+                                <h3><i class="fas fa-chart-line"></i> Reading Progress</h3>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="reading-progress"></div>
+                                    </div>
+                                    <div class="progress-text">
+                                        <span id="progress-percentage">0%</span> completed
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Related Tags -->
+                            <div class="sidebar-section">
+                                <h3><i class="fas fa-tags"></i> Related Topics</h3>
+                                <div class="related-tags">
+                                    <a href="#" class="related-tag">GitHub Actions</a>
+                                    <a href="#" class="related-tag">Docker</a>
+                                    <a href="#" class="related-tag">Kubernetes</a>
+                                    <a href="#" class="related-tag">CI/CD</a>
+                                    <a href="#" class="related-tag">DevOps</a>
+                                    <a href="#" class="related-tag">Automation</a>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="sidebar-section">
+                                <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                                <div class="quick-actions">
+                                    <button class="quick-action-btn" onclick="printPage()">
+                                        <i class="fas fa-print"></i>
+                                        <span>Print Article</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="toggleDarkMode()">
+                                        <i class="fas fa-moon"></i>
+                                        <span>Toggle Theme</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="increaseFontSize()">
+                                        <i class="fas fa-text-height"></i>
+                                        <span>Text Size</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </section>
-
-                    <section class="content-section">
-                        <h2>Results and Benefits</h2>
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <div class="result-number">95%</div>
-                                <div class="result-label">Reduction in deployment time</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-number">0</div>
-                                <div class="result-label">Manual deployment errors</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-number">100%</div>
-                                <div class="result-label">Test coverage requirement</div>
-                            </div>
-                            <div class="result-card">
-                                <div class="result-number">24/7</div>
-                                <div class="result-label">Automated monitoring</div>
-                            </div>
-                        </div>
-
-                        <p>The implementation of this CI/CD pipeline has transformed our development workflow:</p>
-                        <ul>
-                            <li><strong>Faster Time to Market:</strong> Features reach production 95% faster</li>
-                            <li><strong>Higher Quality:</strong> Automated testing catches issues before deployment</li>
-                            <li><strong>Better Developer Experience:</strong> Developers can focus on coding instead of deployment logistics</li>
-                            <li><strong>Improved Reliability:</strong> Consistent, repeatable deployments reduce downtime</li>
-                        </ul>
-                    </section>
-
-                    <section class="content-section">
-                        <h2>Lessons Learned</h2>
-                        <div class="highlight-box">
-                            <h3>Key Takeaways</h3>
-                            <ul>
-                                <li>Start simple and iterate - don't try to build the perfect pipeline from day one</li>
-                                <li>Security should be built into the pipeline, not added as an afterthought</li>
-                                <li>Monitor everything - you can't improve what you don't measure</li>
-                                <li>Documentation is crucial for team adoption and maintenance</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section class="content-section">
-                        <h2>Next Steps</h2>
-                        <p>Looking ahead, we're planning to enhance our pipeline with:</p>
-                        <ul>
-                            <li>Automated security scanning with tools like Snyk</li>
-                            <li>Performance testing integration</li>
-                            <li>Multi-environment promotion workflows</li>
-                            <li>Advanced monitoring and alerting with Prometheus</li>
-                        </ul>
-                    </section>
+                    </aside>
                 </div>
-
-                <!-- Blog Footer -->
-                <footer class="blog-footer">
-                    <div class="blog-author">
-                        <div class="author-info">
-                            <h3>About the Author</h3>
-                            <p>Firman Arya is a DevOps Engineer with expertise in cloud infrastructure, automation, and CI/CD pipelines. He specializes in building scalable systems that help teams deliver software faster and more reliably.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-navigation">
-                        <a href="../blogs.html" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i>
-                            See All Blogs
-                        </a>
-                        <div class="share-buttons">
-                            <span>Share this post:</span>
-                            <a href="#" class="share-btn" title="Share on LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="#" class="share-btn" title="Share on Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </article>
     </main>
@@ -396,7 +701,125 @@ spec:
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-dockerfile.min.js"></script>
     <script src="../script.js"></script>
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-redesigned').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
+                button.style.background = '#27ca3f';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Table of contents scroll spy
+        function updateTOC() {
+            const sections = document.querySelectorAll('.content-section-redesigned');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Reading progress
+        function updateReadingProgress() {
+            const article = document.querySelector('.blog-main-content');
+            const scrollTop = window.scrollY;
+            const docHeight = article.offsetHeight;
+            const winHeight = window.innerHeight;
+            const scrollPercent = scrollTop / (docHeight - winHeight);
+            const scrollPercentRounded = Math.round(scrollPercent * 100);
+            
+            const progressBar = document.getElementById('reading-progress');
+            const progressText = document.getElementById('progress-percentage');
+            
+            if (progressBar && progressText) {
+                progressBar.style.width = Math.min(scrollPercentRounded, 100) + '%';
+                progressText.textContent = Math.min(scrollPercentRounded, 100) + '%';
+            }
+        }
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateTOC();
+            updateReadingProgress();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTOC();
+            updateReadingProgress();
+        });
+
+        // Quick action functions
+        function printPage() {
+            window.print();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('light');
+        }
+
+        function increaseFontSize() {
+            const content = document.querySelector('.blog-content-redesigned');
+            const currentSize = window.getComputedStyle(content).fontSize;
+            const newSize = parseFloat(currentSize) * 1.1;
+            content.style.fontSize = newSize + 'px';
+        }
+
+        // Interactive action buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                
+                if (this.classList.contains('like-btn')) {
+                    const count = this.querySelector('.count');
+                    const currentCount = parseInt(count.textContent);
+                    count.textContent = this.classList.contains('active') ? currentCount + 1 : currentCount - 1;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
