@@ -5,278 +5,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <title>Firman Arya | Portfolio & Blog</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
-        rel="stylesheet">
-</head>
 
-<body class="dark">
-    <!-- Animated Background Particles -->
-    <div class="particles-bg">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-    <header class="navbar" role="navigation" aria-label="Main Navigation">
-        <div class="container nav-container">
-            <a href="#home" class="nav-logo" aria-label="Firman Arya Home">
-                <i class="fas fa-code highlight" aria-hidden="true"></i>
-                <span>Firman Arya</span>
-            </a>
-            <ul class="nav-menu" role="menubar">
-                <li><a href="#about" role="menuitem">About</a></li>
-                <li><a href="#skills" role="menuitem">Skills</a></li>
-                <li><a href="#projects" role="menuitem">Blogs</a></li>
-                <li><a href="#contact" role="menuitem">Contact</a></li>
-            </ul>
-            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
-                aria-expanded="false" role="button">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicons/favicon-512.png">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#00d4ff">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00d4ff">
 
-    <main>
-        <section id="home" class="hero" tabindex="-1">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>Automating Complexity.<br>Scaling with <span class="highlight">Confidence.</span></h1>
-                        <p class="hero-subtitle">A DevOps Engineer dedicated to building robust, automated pipelines and
-                            resilient cloud infrastructure to accelerate software delivery.</p>
-                        <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-primary">View My Blogs</a>
-                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                        <div class="terminal-window" aria-label="Terminal window">
-                            <div class="terminal-header">
-                                <div class="terminal-controls">
-                                    <span class="control red"></span>
-                                    <span class="control yellow"></span>
-                                    <span class="control green"></span>
-                                </div>
-                                <span class="terminal-title">zsh -- /bin/bash</span>
-                            </div>
-                            <div class="terminal-body" id="terminal-content"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about" tabindex="-1">
-            <div class="container">
-                <h2>Bridging Development and Operations</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>As a DevOps engineer, I build scalable infrastructure and engineer CI/CD pipelines that
-                            deliver code to production faster,
-                            safer, and more reliably. I believe DevOps isn’t just automation, it’s alignment. From
-                            development to deployment, my mission is to remove friction, reduce failure, and accelerate
-                            innovation.</p>
-                    </div>
-                    <div class="about-image">
-                        <div class="cloud-diagram">
-                            <div class="cloud-icon"><i class="fas fa-cogs"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="skills" tabindex="-1">
-            <div class="container">
-                <h2>Core Technology Stack</h2>
-                <div class="skills-grid">
-                    <!-- Row 1: AWS and Docker -->
-                    <div class="skill-card" style="grid-column: 1; grid-row: 1;"><i class="fab fa-aws"
-                            aria-hidden="true"></i><span>AWS</span></div>
-                    <div class="skill-card" style="grid-column: 3; grid-row: 1;"><i class="fab fa-docker"
-                            aria-hidden="true"></i><span>Docker</span></div>
-
-                    <!-- Row 2: Kubernetes, Terraform, and GitHub Actions -->
-                    <div class="skill-card" style="grid-column: 1; grid-row: 2;"><span aria-hidden="true"
-                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="2.5rem" height="2.5rem">
-                                <circle cx="16" cy="16" r="14" fill="none" stroke="#00d4ff" stroke-width="2" />
-                                <g fill="#00d4ff">
-                                    <circle cx="16" cy="8" r="1.5" />
-                                    <circle cx="24" cy="16" r="1.5" />
-                                    <circle cx="16" cy="24" r="1.5" />
-                                    <circle cx="8" cy="16" r="1.5" />
-                                    <circle cx="20.5" cy="11.5" r="1.5" />
-                                    <circle cx="20.5" cy="20.5" r="1.5" />
-                                    <circle cx="11.5" cy="20.5" r="1.5" />
-                                    <circle cx="11.5" cy="11.5" r="1.5" />
-                                    <line x1="16" y1="8" x2="16" y2="12" stroke="#00d4ff" stroke-width="2" />
-                                    <line x1="24" y1="16" x2="20" y2="16" stroke="#00d4ff" stroke-width="2" />
-                                    <line x1="16" y1="24" x2="16" y2="20" stroke="#00d4ff" stroke-width="2" />
-                                    <line x1="8" y1="16" x2="12" y2="16" stroke="#00d4ff" stroke-width="2" />
-                                </g>
-                            </svg></span><span>Kubernetes</span></div>
-                    <div class="skill-card" style="grid-column: 2; grid-row: 2;"><span aria-hidden="true"
-                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="2.5rem" height="2.5rem">
-                                <g>
-                                    <path fill="#00d4ff"
-                                        d="M53.6 4.8 75 18.1v33.2L53.6 38zM75 53.6l21.4-13.3v33.2L75 86.8zM32.2 18.1l21.4 13.3v33.2L32.2 51.3zM75 91.9V124l21.4-13.3V78.7zM53.6 124V90.8l-21.4-13.3v33.2z" />
-                                </g>
-                            </svg></span><span>Terraform</span></div>
-                    <div class="skill-card" style="grid-column: 3; grid-row: 2;"><i class="fab fa-github"
-                            aria-hidden="true"></i><span>GitHub Actions</span></div>
-
-                    <!-- Row 3: Python and GitOps -->
-                    <div class="skill-card" style="grid-column: 1; grid-row: 3;"><i class="fab fa-python"
-                            aria-hidden="true"></i><span>Python</span></div>
-                    <div class="skill-card" style="grid-column: 3; grid-row: 3;"><span aria-hidden="true"
-                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2.5rem" height="2.5rem">
-                                <path fill="#00d4ff"
-                                    d="M12 2L2 7v10l10 5 10-5V7l-10-5zM12 4.18L19.82 8 12 11.82 4.18 8 12 4.18zM4 9.18l7 3.5v7.14l-7-3.5V9.18zm16 0v7.14l-7 3.5v-7.14l7-3.5z" />
-                                <circle cx="12" cy="8" r="1.5" fill="#00d4ff" />
-                                <path fill="#00d4ff" d="M8 12h8v1H8v-1zm0 2h8v1H8v-1z" />
-                            </svg></span><span>GitOps</span></div>
-
-                    <!-- Row 4: Jenkins -->
-                    <div class="skill-card" style="grid-column: 2; grid-row: 4;"><span aria-hidden="true"
-                            style="display:flex;align-items:center;justify-content:center;height:2.5rem;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2.5rem" height="2.5rem">
-                                <path fill="#00d4ff"
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                                <circle cx="12" cy="12" r="2" fill="none" stroke="#00d4ff" stroke-width="1.5" />
-                                <path fill="#00d4ff" d="M12 8v8M8 12h8" />
-                            </svg></span><span>Jenkins</span></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="projects" tabindex="-1">
-            <div class="container">
-                <h2>Featured Blogs</h2>
-                <div class="projects-grid blog-preview-grid">
-                    <div class="project-card blog-card blog-preview-card">
-                        <div class="blog-featured-image">
-                            <div class="blog-image-placeholder">
-                                <i class="fas fa-code-branch"></i>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span>December 8, 2024</span>
-                            </div>
-                            <h3><a href="blog/ci-cd-pipeline-github-actions.html">CI/CD Pipeline Using GitHub Actions</a></h3>
-                            <p class="blog-excerpt">A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated deployment process.</p>
-                            <div class="project-tech blog-tags">
-                                <span>GitHub Actions</span>
-                                <span>Docker</span>
-                                <span>Kubernetes</span>
-                                <span>DevOps</span>
-                            </div>
-                            <a href="blog/ci-cd-pipeline-github-actions.html" class="btn btn-small btn-outline read-more-btn">
-                                <i class="fas fa-arrow-right"></i>
-                                Read More
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-card blog-card blog-preview-card">
-                        <div class="blog-featured-image">
-                            <div class="blog-image-placeholder">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span>December 10, 2024</span>
-                            </div>
-                            <h3><a href="blog/aws-terraform-infrastructure.html">Deploying Infrastructure on AWS with Terraform</a></h3>
-                            <p class="blog-excerpt">Learn how to provision secure, scalable cloud infrastructure using Infrastructure as Code principles with Terraform.</p>
-                            <div class="project-tech blog-tags">
-                                <span>Terraform</span>
-                                <span>AWS</span>
-                                <span>IaC</span>
-                                <span>Cloud</span>
-                            </div>
-                            <a href="blog/aws-terraform-infrastructure.html" class="btn btn-small btn-outline read-more-btn">
-                                <i class="fas fa-arrow-right"></i>
-                                Read More
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-card blog-card blog-preview-card">
-                        <div class="blog-featured-image">
-                            <div class="blog-image-placeholder">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span>December 5, 2024</span>
-                            </div>
-                            <h3><a href="blog/prometheus-grafana-monitoring.html">Monitoring with Prometheus & Grafana</a></h3>
-                            <p class="blog-excerpt">Building a comprehensive monitoring and alerting system that provides real-time visibility into application performance.</p>
-                            <div class="project-tech blog-tags">
-                                <span>Prometheus</span>
-                                <span>Grafana</span>
-                                <span>Monitoring</span>
-                                <span>Observability</span>
-                            </div>
-                            <a href="blog/prometheus-grafana-monitoring.html" class="btn btn-small btn-outline read-more-btn">
-                                <i class="fas fa-arrow-right"></i>
-                                Read More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-actions">
-                    <a href="blogs.html" class="btn btn-primary see-all-blogs">
-                        <i class="fas fa-book-open"></i>
-                        See All Blogs
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact" tabindex="-1">
-            <div class="container">
-                <h2>Let's Connect</h2>
-                <p class="contact-subtitle">I'm currently available for new opportunities. <br>Feel free to reach
-                    out—I'd love to hear from you.</p>
-                <div class="contact-links">
-                    <a href="mailto:firmanap22@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"
-                            aria-hidden="true"></i> firmanap22@gmail.com</a>
-                    <a href="https://www.linkedin.com/in/firmanaryapradhana/" target="_blank"
-                        class="btn btn-secondary"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
-                    <a href="https://github.com/ghoman22" target="_blank" class="btn btn-secondary"><i
-                            class="fab fa-github" aria-hidden="true"></i> GitHub</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top"><i
-            class="fas fa-arrow-up"></i></button>
-    <script src="script.js"></script>
-</body>
-
-</html>
+    
+    <!-- SEO Meta Tags -->
+    <title>Firman Arya - DevOps Engineer | AWS, Kubernetes, CI/CD Expert</title>
+    <meta name="description" content="DevOps Engineer specializing in AWS cloud infrastructure, Kubernetes, CI/CD pipelines, and automation. Building scalable, reliable systems for faster software delivery.">
+    <meta name="keywords" content="DevOps Engineer, AWS, Kubernetes, Docker, Terraform, CI/CD, GitHub Actions, Cloud Infrastructure, Automation, Jakarta, Indonesia">
+    <meta name="author" content="Firman Arya Pradhana">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://goman.ngenz.org/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Firman Arya - DevOps Engineer | AWS, Kubernetes, CI/CD Expert">
+    <meta property="og:description" content="DevOps Engineer specializing in AWS cloud infrastructure, Kubernetes, CI/CD pipelines, and automation. Building scalable, reliable systems for faster software delivery.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://goman.ngenz.org/">
+    <meta property="og:site_name" content="Firman Arya Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Firman Arya - DevOps Engineer | AWS, Kubernetes, CI/CD Expert">
+    <meta name="twitter:description" content="DevOps Engineer specializing in AWS cloud infrastructure, Kubernetes, CI/CD pipelines, and automation.">
+    <meta name="twitter:creator" content="@firmanarya">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Firman Arya Pradhana",
+        "jobTitle": "DevOps Engineer",
+        "description": "DevOps Engineer specializing in AWS cloud infrastructure, Kubernetes, CI/CD pipelines, and automation",
+        "url": "https://goman.ngenz.org/",
+        "sameAs": [
+            "https://www.linkedin.com/in/firmanaryapradhana/",
+            "https://github.com/ghoman22"
+        ],
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Technology Industry"
+        },
+        "knowsAbout": [
+            "AWS",
+            "Kubernetes",
+            "Docker",
+            "Terraform",
+            "CI/CD",
+            "GitHub Actions",
+            "Cloud Infrastructure",
+            "DevOps",
+            "Python",
+            "GitOps"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "firmanap22@gmail.com",
+            "contactType": "professional"
+        }
+    }
+    </script>
+    

@@ -22,7 +22,7 @@ jobs:
           source: "."
           target: "~/portfolio-deploy"
 
-      - name: Run install script on EC2
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -30,5 +30,13 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/portfolio-deploy
-            chmod +x install.sh
-            ./install.sh
+            chmod +x install.sh update-site.sh
+            
+            # Smart deployment: full install for first time, update for subsequent
+            if [ ! -d /var/www/portfolio ]; then
+              echo "🚀 First deployment detected"
+              ./install.sh
+            else
+              echo "🔄 Updating existing site"
+              ./update-site.sh
+            fi

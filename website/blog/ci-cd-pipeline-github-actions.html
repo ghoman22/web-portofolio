@@ -5,16 +5,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <title>How I Built a CI/CD Pipeline Using GitHub Actions | Firman Arya | Portfolio & Blog</title>
-    <meta name="description" content="A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated our deployment process and reduced release cycles from days to minutes.">
-    <link rel="stylesheet" href="../styles.css">
+    
+    <!-- SEO Meta Tags -->
+    <title>How I Built a CI/CD Pipeline Using GitHub Actions | DevOps Tutorial</title>
+    <meta name="description" content="Complete guide to building a CI/CD pipeline with GitHub Actions, Docker, and Kubernetes. Learn how to automate deployments and reduce release cycles from days to minutes.">
+    <meta name="keywords" content="CI/CD Pipeline, GitHub Actions, Docker, Kubernetes, DevOps, Automation, Deployment, Container, Infrastructure">
+    <meta name="author" content="Firman Arya Pradhana">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://goman.ngenz.org/blog/ci-cd-pipeline-github-actions">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="How I Built a CI/CD Pipeline Using GitHub Actions | DevOps Tutorial">
+    <meta property="og:description" content="Complete guide to building a CI/CD pipeline with GitHub Actions, Docker, and Kubernetes. Learn how to automate deployments and reduce release cycles.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://goman.ngenz.org/blog/ci-cd-pipeline-github-actions">
+    <meta property="og:site_name" content="Firman Arya Portfolio">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2024-12-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-12-15T00:00:00+00:00">
+    <meta property="article:author" content="Firman Arya Pradhana">
+    <meta property="article:section" content="DevOps">
+    <meta property="article:tag" content="CI/CD">
+    <meta property="article:tag" content="GitHub Actions">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Kubernetes">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How I Built a CI/CD Pipeline Using GitHub Actions">
+    <meta name="twitter:description" content="Complete guide to building a CI/CD pipeline with GitHub Actions, Docker, and Kubernetes.">
+    <meta name="twitter:creator" content="@firmanarya">
+    
+    <!-- Structured Data for Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How I Built a CI/CD Pipeline Using GitHub Actions",
+        "description": "A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated our deployment process and reduced release cycles from days to minutes.",
+        "url": "https://goman.ngenz.org/blog/ci-cd-pipeline-github-actions",
+        "datePublished": "2024-12-15T00:00:00+00:00",
+        "dateModified": "2024-12-15T00:00:00+00:00",
+        "author": {
+            "@type": "Person",
+            "name": "Firman Arya Pradhana",
+            "jobTitle": "DevOps Engineer",
+            "sameAs": [
+                "https://www.linkedin.com/in/firmanaryapradhana/",
+                "https://github.com/ghoman22"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Firman Arya Pradhana"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://goman.ngenz.org/blog/ci-cd-pipeline-github-actions"
+        },
+        "inLanguage": "en-US",
+        "keywords": ["CI/CD Pipeline", "GitHub Actions", "Docker", "Kubernetes", "DevOps", "Automation"],
+        "articleSection": "DevOps",
+        "wordCount": 2500,
+        "timeRequired": "PT8M"
+    }
+    </script>
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicons/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../favicons/favicon-512.png">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="../favicons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="../favicons/site.webmanifest">
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#00d4ff">
+    <meta name="msapplication-config" content="../favicons/browserconfig.xml">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00d4ff">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../styles.css" as="style">
+    <link rel="preload" href="../script.js" as="script">
 </head>
 
 <body class="dark">
@@ -30,15 +121,15 @@
     
     <header class="navbar" role="navigation" aria-label="Main Navigation">
         <div class="container nav-container">
-            <a href="../index.html" class="nav-logo" aria-label="Firman Arya Home">
+            <a href="/" class="nav-logo" aria-label="Firman Arya Home">
                 <i class="fas fa-code highlight" aria-hidden="true"></i>
                 <span>Firman Arya</span>
             </a>
             <ul class="nav-menu" role="menubar">
-                <li><a href="../index.html#about" role="menuitem">About</a></li>
-                <li><a href="../index.html#skills" role="menuitem">Skills</a></li>
-                <li><a href="../blogs.html" role="menuitem" class="active">Blogs</a></li>
-                <li><a href="../index.html#contact" role="menuitem">Contact</a></li>
+                <li><a href="/#about" role="menuitem">About</a></li>
+                <li><a href="/#skills" role="menuitem">Skills</a></li>
+                <li><a href="/blog" role="menuitem" class="active">Blog</a></li>
+                <li><a href="/#contact" role="menuitem">Contact</a></li>
             </ul>
             <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
                 aria-expanded="false" role="button">
@@ -54,12 +145,12 @@
             <div class="blog-container">
                 <!-- Blog Navigation -->
                 <nav class="blog-breadcrumb">
-                    <a href="../index.html" class="breadcrumb-link">
+                    <a href="/" class="breadcrumb-link">
                         <i class="fas fa-home"></i>
                         <span>Home</span>
                     </a>
                     <i class="fas fa-chevron-right breadcrumb-separator"></i>
-                    <a href="../blogs.html" class="breadcrumb-link">
+                    <a href="/blog" class="breadcrumb-link">
                         <i class="fas fa-blog"></i>
                         <span>Blogs</span>
                     </a>

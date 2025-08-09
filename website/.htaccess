@@ -1,0 +1,89 @@
+# SEO-Friendly URL Rewriting for Apache
+# Enable URL Rewriting
+RewriteEngine On
+
+# Security Headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options SAMEORIGIN
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# GZIP Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/ico "access plus 1 year"
+    ExpiresByType image/icon "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+# Force WWW removal (canonical URL)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Remove .html extension from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# Redirect .html URLs to clean URLs (301 redirects for SEO)
+RewriteCond %{THE_REQUEST} \s/+(.*/)?([^/\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1%2? [R=301,L]
+
+# Handle specific page redirects
+RewriteRule ^blog/?$ /blogs.html [NC,L]
+
+# Handle blog post clean URLs
+RewriteRule ^blog/([a-z0-9-]+)/?$ /blog/$1.html [NC,L]
+
+# Redirect old blog URLs to new clean URLs
+RewriteRule ^blog/ci-cd-pipeline-github-actions\.html$ /blog/ci-cd-pipeline-github-actions [R=301,L]
+RewriteRule ^blog/aws-terraform-infrastructure\.html$ /blog/aws-terraform-infrastructure [R=301,L]
+RewriteRule ^blog/prometheus-grafana-monitoring\.html$ /blog/prometheus-grafana-monitoring [R=301,L]
+
+# Redirect old index.html to root
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^blogs\.html$ /blog [R=301,L]
+
+# Handle section anchors
+RewriteRule ^about/?$ /#about [R=301,L]
+RewriteRule ^skills/?$ /#skills [R=301,L]
+RewriteRule ^contact/?$ /#contact [R=301,L]
+
+# Block access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Custom Error Pages
+ErrorDocument 404 /404.html
+ErrorDocument 500 /50x.html
+
+# Robots.txt
+RewriteRule ^robots\.txt$ - [L]
+
+# Force HTTPS (uncomment when SSL is configured)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

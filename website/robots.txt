@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://goman.ngenz.org/sitemap.xml
+
+# Block sensitive files and directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /config/
+Disallow: *.log$
+
+# Allow important files
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /favicon.ico
+
+# Crawl delay (optional - prevents overwhelming the server)
+Crawl-delay: 1

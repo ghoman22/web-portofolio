@@ -1,6 +1,50 @@
 # Firman Arya - Portfolio & Blog
 
-A modern, responsive portfolio website with a fully functional blog system showcasing DevOps expertise and technical insights.
+A modern, responsive portfolio website with SEO optimization and complete favicon system showcasing DevOps expertise.
+
+## 🚀 Quick Deploy
+
+**Fresh Installation:**
+```bash
+git clone <repo-url>
+cd Goman
+chmod +x install.sh
+./install.sh
+```
+
+**Update Existing Site:**
+```bash
+git pull
+chmod +x update-site.sh
+./update-site.sh
+```
+
+## 📁 File Struktur
+
+- `install.sh` - Install lengkap (first time)
+- `update-site.sh` - Update incremental untuk deployment berikutnya  
+- `nginx-seo.conf` - Nginx config dengan SEO optimization (prioritas)
+- `nginx.conf` - Standard nginx config (fallback)
+- `website/` - Website files & favicons
+
+## ✨ Recent Updates
+
+### SEO Optimization
+- ✅ Clean URLs (tanpa .html)
+- ✅ Meta tags lengkap (Open Graph, Twitter Cards)
+- ✅ Structured data (JSON-LD)
+- ✅ Sitemap.xml & robots.txt
+
+### Favicon System  
+- ✅ Custom logo favicon
+- ✅ Multi-size support (16px-512px)
+- ✅ Apple Touch Icons
+- ✅ Android/PWA support
+
+### CI/CD Pipeline
+- ✅ Smart deployment (auto detect first/update)
+- ✅ Support nginx config updates
+- ✅ Zero-downtime reloads
 
 ## Features
 
