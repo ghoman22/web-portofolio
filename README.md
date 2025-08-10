@@ -1,153 +1,168 @@
 # Firman Arya - Portfolio & Blog
 
-A modern, responsive portfolio website with a fully functional blog system showcasing DevOps expertise and technical insights.
+A modern, responsive portfolio website for a DevOps Engineer featuring clean URLs, automated CI/CD content, and comprehensive blog functionality.
 
-## Features
+## 🌟 Features
 
-### 🏠 Homepage
-- Modern dark theme with animated particles background
-- Hero section with terminal animation
-- Skills showcase with interactive cards
-- Featured blog posts (3 latest posts)
-- Contact section with social links
+- **Clean URL Structure**: SEO-friendly URLs without .html extensions
+- **Responsive Design**: Optimized for all devices and screen sizes
+- **Modern Favicon Support**: SVG favicon with PNG fallbacks
+- **Blog System**: Dedicated blog listing and individual post pages
+- **Automated Redirects**: Seamless migration from old hash-based URLs
+- **Performance Optimized**: Fast loading with modern web standards
 
-### 📝 Blog System
-- **Blog Listing Page** (`/blogs.html`)
-  - Search functionality across blog titles and content
-  - Filter by technology tags (DevOps, AWS, Kubernetes, etc.)
-  - Responsive grid layout
-  - Publication dates and reading time estimates
+## 🔗 URL Structure
 
-- **Individual Blog Posts** (`/blog/*.html`)
-  - Full-featured blog post layout
-  - Code syntax highlighting
-  - Reading time estimates
-  - Social sharing buttons
-  - "Back to Blogs" navigation
-  - Author information
+### Clean URLs (New)
+- **Home**: `/`
+- **About**: `/about`
+- **Skills**: `/skills`
+- **Blogs**: `/blogs`
+- **Contact**: `/contact`
+- **Blog Posts**: `/blog/{slug}`
 
-### 🎨 Design Features
-- Consistent dark theme across all pages
-- Responsive design (mobile-friendly)
-- Smooth animations and hover effects
-- Professional typography with Poppins and Fira Code fonts
-- Glassmorphism effects and backdrop blur
-- Custom favicon and branded page titles
+### Legacy URL Redirects
+The following old URLs automatically redirect to new clean URLs:
+- `index.html#about` → `/about`
+- `index.html#skills` → `/skills`
+- `index.html#contact` → `/contact`
+- `index.html#projects` → `/blogs`
+- `blogs.html` → `/blogs`
+- `blog/*.html` → `/blog/*`
 
-## Blog Posts
+## 🚀 Deployment
 
-### Featured Posts
-1. **How I Built a CI/CD Pipeline Using GitHub Actions**
-   - Complete GitHub Actions workflow
-   - Docker containerization
-   - Kubernetes deployment
-   - Testing and security integration
+### Prerequisites
+- Nginx web server
+- Modern web browser support
 
-2. **Deploying Infrastructure on AWS with Terraform**
-   - Infrastructure as Code principles
-   - AWS provider configuration
-   - Security best practices
-   - State management
+### Installation
+```bash
+# Clone the repository
+git clone <repository-url>
+cd web-portofolio
 
-3. **Monitoring 50+ Services with Prometheus & Grafana**
-   - Prometheus configuration and metrics
-   - Grafana dashboard design
-   - AlertManager setup
-   - Kubernetes monitoring
+# Copy files to web server
+sudo cp -r website/* /var/www/portfolio/
 
-## Technical Stack
+# Update nginx configuration
+sudo cp nginx.conf /etc/nginx/sites-available/portfolio
+sudo ln -sf /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Custom CSS with CSS Grid and Flexbox
-- **Icons**: Font Awesome 6.0
+### Manual Installation (Alternative)
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+## 📱 Favicon Support
+
+The site includes modern favicon support:
+- `favicon.svg` - Modern vector favicon
+- `favicon-32x32.png` - 32×32 PNG fallback
+- `apple-touch-icon.png` - 180×180 Apple touch icon
+
+## 🛠 Technology Stack
+
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Icons**: Font Awesome 6
 - **Fonts**: Google Fonts (Poppins, Fira Code)
-- **Architecture**: Static website (no build process required)
+- **Server**: Nginx with clean URL routing
+- **Animations**: CSS animations with Intersection Observer API
 
-## File Structure
+## 📂 Project Structure
 
 ```
 website/
 ├── index.html              # Homepage
+├── about.html              # About page
+├── skills.html             # Skills page
+├── contact.html            # Contact page
 ├── blogs.html              # Blog listing page
 ├── blog/                   # Individual blog posts
 │   ├── ci-cd-pipeline-github-actions.html
 │   ├── aws-terraform-infrastructure.html
 │   └── prometheus-grafana-monitoring.html
 ├── styles.css              # Main stylesheet
-├── script.js               # Homepage JavaScript
-├── blog-listing.js         # Blog search/filter functionality
-└── favicon.ico             # Site favicon
+├── script.js               # Main JavaScript
+├── blog-listing.js         # Blog listing functionality
+├── favicon.svg             # Modern SVG favicon
+├── favicon-32x32.png       # PNG favicon fallback
+└── apple-touch-icon.png    # Apple touch icon
 ```
 
-## Navigation Flow
+## 🔧 Configuration
 
-```
-Homepage (index.html)
-├── Featured Blogs Section
-│   ├── Read More → Individual Blog Post
-│   └── See All Blogs → Blog Listing (blogs.html)
-├── Blog Listing (blogs.html)
-│   ├── Search & Filter functionality
-│   └── Blog Cards → Individual Blog Posts
-└── Individual Blog Posts
-    └── Back to All Blogs → Blog Listing
-```
+### Nginx Configuration
+The included `nginx.conf` provides:
+- Clean URL routing
+- Automatic redirects from legacy URLs
+- Security headers
+- Favicon handling
+- 404 error handling
 
-## Features Implementation
+### Navigation Active States
+The JavaScript automatically handles active navigation states for:
+- Clean URL pages
+- Blog post pages (highlights "Blogs" nav)
+- Hash-based navigation (for single-page sections)
 
-### ✅ Functional "Read More" Buttons
-- Each blog card links to its respective detailed blog post
-- Smooth hover animations with arrow movement
-- Consistent styling across all pages
+## 🎨 Customization
 
-### ✅ Functional "See All Blogs" Button
-- Links to comprehensive blog listing page
-- Includes search and filter functionality
-- Shows all available blog posts in grid format
+### Adding New Pages
+1. Create a new HTML file (e.g., `services.html`)
+2. Add navigation link in all header sections
+3. Update nginx configuration with new route:
+   ```nginx
+   location = /services {
+       try_files /services.html /services.html;
+   }
+   ```
+4. Add redirect for old URL if needed
 
-### ✅ Custom Branding
-- Custom favicon (placeholder for logo-firman-arya.png)
-- Updated page titles: "Firman Arya | Portfolio & Blog"
-- Consistent branding across all pages
+### Adding New Blog Posts
+1. Create HTML file in `/blog/` directory
+2. Follow naming convention: `slug-name.html`
+3. Add to blog listing in `blogs.html`
+4. URLs will automatically work as `/blog/slug-name`
 
-### ✅ Responsive Design
-- Mobile-first approach
-- Flexible grid layouts
-- Optimized typography scaling
-- Touch-friendly navigation
+## 📊 SEO Features
 
-### ✅ Interactive Elements
-- Search functionality with real-time filtering
-- Technology tag filters
-- Smooth scroll animations
-- Hover effects and micro-interactions
-
-## Browser Compatibility
-
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-- Progressive enhancement approach
-- Graceful fallbacks for older browsers
-
-## Performance
-
-- Optimized images and assets
-- Minimal JavaScript footprint
-- CSS-based animations
-- Fast loading times
-- No external dependencies (except fonts and icons)
-
-## SEO Features
-
+- Clean, descriptive URLs
+- Proper meta tags and descriptions
 - Semantic HTML structure
-- Meta descriptions for each blog post
-- Proper heading hierarchy
-- Alt text for images
-- Clean URL structure
+- Fast loading times
+- Mobile-responsive design
+- Accessibility features
+
+## 🔍 Testing
+
+Test the URL structure:
+```bash
+# Test clean URLs
+curl -I http://localhost/about
+curl -I http://localhost/blogs
+curl -I http://localhost/blog/ci-cd-pipeline-github-actions
+
+# Test redirects
+curl -I http://localhost/about.html
+curl -I http://localhost/blogs.html
+```
+
+## 📝 License
+
+© 2025 Firman Arya. All rights reserved.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ---
 
-**Author**: Firman Arya  
-**Contact**: firmanap22@gmail.com  
-**LinkedIn**: [linkedin.com/in/firmanaryapradhana](https://www.linkedin.com/in/firmanaryapradhana/)  
-**GitHub**: [github.com/ghoman22](https://github.com/ghoman22)
+Built with ❤️ by Firman Arya - DevOps Engineer

@@ -7,12 +7,40 @@
     <meta name="color-scheme" content="dark light">
     <title>Firman Arya | Portfolio & Blog</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
         rel="stylesheet">
+    <script>
+        // Handle hash-based redirects on the main page
+        if (window.location.hash) {
+            const hash = window.location.hash;
+            let redirectPath = '/';
+            
+            switch (hash) {
+                case '#about':
+                    redirectPath = '/about';
+                    break;
+                case '#skills':
+                    redirectPath = '/skills';
+                    break;
+                case '#contact':
+                    redirectPath = '/contact';
+                    break;
+                case '#projects':
+                    redirectPath = '/blogs';
+                    break;
+            }
+            
+            if (redirectPath !== '/') {
+                window.location.replace(redirectPath);
+            }
+        }
+    </script>
 </head>
 
 <body class="dark">
@@ -27,15 +55,15 @@
     </div>
     <header class="navbar" role="navigation" aria-label="Main Navigation">
         <div class="container nav-container">
-            <a href="#home" class="nav-logo" aria-label="Firman Arya Home">
+            <a href="/" class="nav-logo" aria-label="Firman Arya Home">
                 <i class="fas fa-code highlight" aria-hidden="true"></i>
                 <span>Firman Arya</span>
             </a>
             <ul class="nav-menu" role="menubar">
-                <li><a href="#about" role="menuitem">About</a></li>
-                <li><a href="#skills" role="menuitem">Skills</a></li>
-                <li><a href="#projects" role="menuitem">Blogs</a></li>
-                <li><a href="#contact" role="menuitem">Contact</a></li>
+                <li><a href="/about" role="menuitem">About</a></li>
+                <li><a href="/skills" role="menuitem">Skills</a></li>
+                <li><a href="/blogs" role="menuitem">Blogs</a></li>
+                <li><a href="/contact" role="menuitem">Contact</a></li>
             </ul>
             <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
                 aria-expanded="false" role="button">
@@ -55,8 +83,8 @@
                         <p class="hero-subtitle">A DevOps Engineer dedicated to building robust, automated pipelines and
                             resilient cloud infrastructure to accelerate software delivery.</p>
                         <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-primary">View My Blogs</a>
-                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                            <a href="/blogs" class="btn btn-primary">View My Blogs</a>
+                            <a href="/contact" class="btn btn-secondary">Get In Touch</a>
                         </div>
                     </div>
                     <div class="hero-image">
@@ -177,7 +205,7 @@
                                 <i class="fas fa-calendar-alt"></i>
                                 <span>December 8, 2024</span>
                             </div>
-                            <h3><a href="blog/ci-cd-pipeline-github-actions.html">CI/CD Pipeline Using GitHub Actions</a></h3>
+                            <h3><a href="/blog/ci-cd-pipeline-github-actions">CI/CD Pipeline Using GitHub Actions</a></h3>
                             <p class="blog-excerpt">A detailed walkthrough of designing and implementing a robust CI/CD pipeline that automated deployment process.</p>
                             <div class="project-tech blog-tags">
                                 <span>GitHub Actions</span>
@@ -185,7 +213,7 @@
                                 <span>Kubernetes</span>
                                 <span>DevOps</span>
                             </div>
-                            <a href="blog/ci-cd-pipeline-github-actions.html" class="btn btn-small btn-outline read-more-btn">
+                            <a href="/blog/ci-cd-pipeline-github-actions" class="btn btn-small btn-outline read-more-btn">
                                 <i class="fas fa-arrow-right"></i>
                                 Read More
                             </a>
@@ -202,7 +230,7 @@
                                 <i class="fas fa-calendar-alt"></i>
                                 <span>December 10, 2024</span>
                             </div>
-                            <h3><a href="blog/aws-terraform-infrastructure.html">Deploying Infrastructure on AWS with Terraform</a></h3>
+                            <h3><a href="/blog/aws-terraform-infrastructure">Deploying Infrastructure on AWS with Terraform</a></h3>
                             <p class="blog-excerpt">Learn how to provision secure, scalable cloud infrastructure using Infrastructure as Code principles with Terraform.</p>
                             <div class="project-tech blog-tags">
                                 <span>Terraform</span>
@@ -210,7 +238,7 @@
                                 <span>IaC</span>
                                 <span>Cloud</span>
                             </div>
-                            <a href="blog/aws-terraform-infrastructure.html" class="btn btn-small btn-outline read-more-btn">
+                            <a href="/blog/aws-terraform-infrastructure" class="btn btn-small btn-outline read-more-btn">
                                 <i class="fas fa-arrow-right"></i>
                                 Read More
                             </a>
@@ -227,7 +255,7 @@
                                 <i class="fas fa-calendar-alt"></i>
                                 <span>December 5, 2024</span>
                             </div>
-                            <h3><a href="blog/prometheus-grafana-monitoring.html">Monitoring with Prometheus & Grafana</a></h3>
+                            <h3><a href="/blog/prometheus-grafana-monitoring">Monitoring with Prometheus & Grafana</a></h3>
                             <p class="blog-excerpt">Building a comprehensive monitoring and alerting system that provides real-time visibility into application performance.</p>
                             <div class="project-tech blog-tags">
                                 <span>Prometheus</span>
@@ -235,7 +263,7 @@
                                 <span>Monitoring</span>
                                 <span>Observability</span>
                             </div>
-                            <a href="blog/prometheus-grafana-monitoring.html" class="btn btn-small btn-outline read-more-btn">
+                            <a href="/blog/prometheus-grafana-monitoring" class="btn btn-small btn-outline read-more-btn">
                                 <i class="fas fa-arrow-right"></i>
                                 Read More
                             </a>
@@ -243,7 +271,7 @@
                     </div>
                 </div>
                 <div class="blog-actions">
-                    <a href="blogs.html" class="btn btn-primary see-all-blogs">
+                    <a href="/blogs" class="btn btn-primary see-all-blogs">
                         <i class="fas fa-book-open"></i>
                         See All Blogs
                     </a>

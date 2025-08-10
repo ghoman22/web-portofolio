@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        // Handle hash-based redirects since nginx can't handle them
+        const hash = window.location.hash;
+        if (hash) {
+            switch (hash) {
+                case '#about':
+                    window.location.replace('/about');
+                    break;
+                case '#skills':
+                    window.location.replace('/skills');
+                    break;
+                case '#contact':
+                    window.location.replace('/contact');
+                    break;
+                case '#projects':
+                    window.location.replace('/blogs');
+                    break;
+                default:
+                    window.location.replace('/');
+                    break;
+            }
+        } else {
+            // If no hash, redirect to home
+            window.location.replace('/');
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>

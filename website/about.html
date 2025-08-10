@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>About | Firman Arya | Portfolio & Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark">
+    <!-- Animated Background Particles -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <header class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo" aria-label="Firman Arya Home">
+                <i class="fas fa-code highlight" aria-hidden="true"></i>
+                <span>Firman Arya</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li><a href="/about" role="menuitem" class="active">About</a></li>
+                <li><a href="/skills" role="menuitem">Skills</a></li>
+                <li><a href="/blogs" role="menuitem">Blogs</a></li>
+                <li><a href="/contact" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="hamburger" tabindex="0" aria-label="Open navigation menu" aria-controls="nav-menu"
+                aria-expanded="false" role="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about" tabindex="-1" style="padding-top: 120px;">
+            <div class="container">
+                <h1>Bridging Development and Operations</h1>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>As a DevOps engineer, I build scalable infrastructure and engineer CI/CD pipelines that
+                            deliver code to production faster,
+                            safer, and more reliably. I believe DevOps isn't just automation, it's alignment. From
+                            development to deployment, my mission is to remove friction, reduce failure, and accelerate
+                            innovation.</p>
+                        
+                        <h2>My Journey</h2>
+                        <p>With years of experience in cloud infrastructure and automation, I've helped teams transform their deployment processes from manual, error-prone procedures to streamlined, automated pipelines. My expertise spans across AWS cloud services, Kubernetes orchestration, and Infrastructure as Code principles.</p>
+                        
+                        <h2>What I Do</h2>
+                        <ul>
+                            <li><strong>Cloud Infrastructure:</strong> Design and implement scalable, secure cloud architectures on AWS</li>
+                            <li><strong>CI/CD Pipelines:</strong> Build automated deployment pipelines that reduce time-to-market</li>
+                            <li><strong>Monitoring & Observability:</strong> Create comprehensive monitoring solutions for system reliability</li>
+                            <li><strong>Infrastructure as Code:</strong> Manage infrastructure through code using Terraform and other tools</li>
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        <div class="cloud-diagram">
+                            <div class="cloud-icon"><i class="fas fa-cogs"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Firman Arya. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" title="Back to Top"><i
+            class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+</body>
+
+</html>

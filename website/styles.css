@@ -3705,3 +3705,36 @@ section:last-of-type::after {
     color: #6a737d;
     font-size: 0.8rem;
 }
+/* Skills page specific styles */
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.skill-category h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-category li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.skill-category li:hover {
+    color: var(--accent-color);
+    transform: translateX(5px);
+}
+
+.skill-category li:last-child {
+    border-bottom: none;
+}

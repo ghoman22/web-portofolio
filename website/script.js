@@ -95,7 +95,38 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionObserver.observe(section);
     });
 
-    // Active navigation highlighting
+    // Active navigation highlighting for clean URLs
+    const updateActiveNavigation = () => {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const linkHref = link.getAttribute('href');
+            
+            // Handle exact matches for clean URLs
+            if (linkHref === currentPath) {
+                link.classList.add('active');
+            }
+            // Handle root path
+            else if (currentPath === '/' && linkHref === '/') {
+                link.classList.add('active');
+            }
+            // Handle blog listing page
+            else if (currentPath === '/blogs' && linkHref === '/blogs') {
+                link.classList.add('active');
+            }
+            // Handle individual blog posts (should highlight blogs nav)
+            else if (currentPath.startsWith('/blog/') && linkHref === '/blogs') {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    // Call on page load
+    updateActiveNavigation();
+
+    // Active navigation highlighting for anchor-based navigation (for single page sections)
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
     const updateActiveNav = () => {
         const scrollPosition = window.scrollY + 100;
