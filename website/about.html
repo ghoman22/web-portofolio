@@ -49,32 +49,196 @@
     </header>
 
     <main>
-        <section class="about" tabindex="-1" style="padding-top: 120px;">
+        <!-- Hero Section -->
+        <section class="about-hero" tabindex="-1">
             <div class="container">
-                <h1>Bridging Development and Operations</h1>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>As a DevOps engineer, I build scalable infrastructure and engineer CI/CD pipelines that
-                            deliver code to production faster,
-                            safer, and more reliably. I believe DevOps isn't just automation, it's alignment. From
-                            development to deployment, my mission is to remove friction, reduce failure, and accelerate
-                            innovation.</p>
-                        
-                        <h2>My Journey</h2>
-                        <p>With years of experience in cloud infrastructure and automation, I've helped teams transform their deployment processes from manual, error-prone procedures to streamlined, automated pipelines. My expertise spans across AWS cloud services, Kubernetes orchestration, and Infrastructure as Code principles.</p>
-                        
-                        <h2>What I Do</h2>
+                <div class="about-hero-content">
+                    <div class="about-hero-text">
+                        <h1>Bridging Development <span class="highlight">and Operations</span></h1>
+                        <p class="about-hero-subtitle">Transforming complex infrastructure challenges into elegant, scalable solutions that empower teams to deliver exceptional software experiences.</p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">3+</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Projects Deployed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">99.9%</div>
+                                <div class="stat-label">Uptime Achieved</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-hero-visual">
+                        <div class="tech-orbit">
+                            <div class="orbit-center">
+                                <i class="fas fa-user-cog"></i>
+                            </div>
+                            <div class="orbit-item orbit-1">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="orbit-item orbit-2">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <div class="orbit-item orbit-3">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <div class="orbit-item orbit-4">
+                                <i class="fab fa-python"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section class="about-journey">
+            <div class="container">
+                <h2>My DevOps Journey</h2>
+                <div class="journey-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Foundation in Technology</h3>
+                            <p>Started my journey in computer science with a passion for solving complex problems through code and automation.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Cloud Infrastructure Mastery</h3>
+                            <p>Specialized in AWS cloud services, learning to design and implement scalable, secure architectures that support modern applications.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>DevOps Transformation</h3>
+                            <p>Embraced the DevOps culture, building CI/CD pipelines and Infrastructure as Code solutions that bridge development and operations seamlessly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="about-expertise">
+            <div class="container">
+                <h2>What I Bring to the Table</h2>
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Cloud Architecture</h3>
+                        <p>Design and implement robust, scalable cloud infrastructures on AWS that handle millions of requests while maintaining cost efficiency.</p>
                         <ul>
-                            <li><strong>Cloud Infrastructure:</strong> Design and implement scalable, secure cloud architectures on AWS</li>
-                            <li><strong>CI/CD Pipelines:</strong> Build automated deployment pipelines that reduce time-to-market</li>
-                            <li><strong>Monitoring & Observability:</strong> Create comprehensive monitoring solutions for system reliability</li>
-                            <li><strong>Infrastructure as Code:</strong> Manage infrastructure through code using Terraform and other tools</li>
+                            <li>Multi-tier application architectures</li>
+                            <li>Auto-scaling and load balancing</li>
+                            <li>Security-first design principles</li>
                         </ul>
                     </div>
-                    <div class="about-image">
-                        <div class="cloud-diagram">
-                            <div class="cloud-icon"><i class="fas fa-cogs"></i></div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-code-branch"></i>
                         </div>
+                        <h3>CI/CD Pipelines</h3>
+                        <p>Build automated deployment pipelines that reduce manual errors, accelerate delivery, and ensure consistent deployments across environments.</p>
+                        <ul>
+                            <li>GitHub Actions & Jenkins automation</li>
+                            <li>Containerized deployment strategies</li>
+                            <li>Automated testing integration</li>
+                        </ul>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Monitoring & Observability</h3>
+                        <p>Implement comprehensive monitoring solutions that provide real-time insights into system performance and user experience.</p>
+                        <ul>
+                            <li>Prometheus & Grafana dashboards</li>
+                            <li>Log aggregation and analysis</li>
+                            <li>Proactive alerting systems</li>
+                        </ul>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <h3>Infrastructure as Code</h3>
+                        <p>Manage infrastructure through version-controlled code, ensuring reproducible, testable, and maintainable infrastructure deployments.</p>
+                        <ul>
+                            <li>Terraform for AWS provisioning</li>
+                            <li>Kubernetes manifest management</li>
+                            <li>Configuration management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="about-values">
+            <div class="container">
+                <h2>My Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>Constantly exploring new technologies and methodologies to solve problems more efficiently.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>Building bridges between development and operations teams to create unified, high-performing organizations.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Reliability</h3>
+                        <p>Ensuring systems are robust, secure, and performant under any conditions.</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Continuous Learning</h3>
+                        <p>Staying ahead of the curve in an ever-evolving technology landscape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="about-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Let's Build Something Amazing Together</h2>
+                    <p>Ready to transform your infrastructure and accelerate your development lifecycle? I'd love to discuss how we can work together to achieve your goals.</p>
+                    <div class="cta-buttons">
+                        <a href="/contact" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i>
+                            Get In Touch
+                        </a>
+                        <a href="/blogs" class="btn btn-secondary">
+                            <i class="fas fa-book-open"></i>
+                            Read My Blog
+                        </a>
                     </div>
                 </div>
             </div>
