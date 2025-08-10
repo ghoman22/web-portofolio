@@ -15,32 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code&display=swap"
         rel="stylesheet">
-    <script>
-        // Handle hash-based redirects on the main page
-        if (window.location.hash) {
-            const hash = window.location.hash;
-            let redirectPath = '/';
-            
-            switch (hash) {
-                case '#about':
-                    redirectPath = '/about';
-                    break;
-                case '#skills':
-                    redirectPath = '/skills';
-                    break;
-                case '#contact':
-                    redirectPath = '/contact';
-                    break;
-                case '#projects':
-                    redirectPath = '/blogs';
-                    break;
-            }
-            
-            if (redirectPath !== '/') {
-                window.location.replace(redirectPath);
-            }
-        }
-    </script>
+
 </head>
 
 <body class="dark">

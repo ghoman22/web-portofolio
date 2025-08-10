@@ -1,29 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Enhanced Hamburger Menu Logic with smooth animations
+    // Enhanced Hamburger Menu Logic with better click handling and responsiveness
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
+        // Improved click handling with debouncing
+        let isMenuToggling = false;
+        
+        hamburger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isMenuToggling) return;
+            isMenuToggling = true;
+            
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
             
             // Add body scroll lock when menu is open
             document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            
+            // Reset debounce after animation
+            setTimeout(() => {
+                isMenuToggling = false;
+            }, 350);
         });
         
-        // Close menu when clicking on links
+        // Enhanced touch support for mobile
+        hamburger.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+        
+        // Close menu when clicking on links with improved handling
         document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                // Close mobile menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
+                
+                // For anchor links, let the enhanced smooth scroll handler take over
+                const href = link.getAttribute('href');
+                if (!href.startsWith('#')) {
+                    // For external navigation, allow normal behavior
+                    return true;
+                }
             });
         });
         
-        // Close menu when clicking outside
+        // Close menu when clicking outside with better event handling
         document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Improved touch support for closing menu
+        document.addEventListener('touchstart', (e) => {
             if (!hamburger.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -277,17 +314,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Smooth scrolling for anchor links
+    // Enhanced Smooth scrolling for anchor links with better error handling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
             if (target) {
                 const offsetTop = target.offsetTop - 80; // Account for fixed navbar
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
                 });
+                
+                // Update URL without causing page reload
+                history.pushState(null, '', `#${targetId}`);
+            }
+        });
+    });
+
+    // Enhanced navigation for external links - ensure they navigate properly
+    document.querySelectorAll('.nav-menu a:not([href^="#"])').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Allow normal navigation for external links
+            const href = this.getAttribute('href');
+            if (href && href !== '#') {
+                // For clean navigation, let the browser handle it normally
+                window.location.href = href;
             }
         });
     });

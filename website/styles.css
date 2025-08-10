@@ -108,7 +108,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .nav-logo:focus-visib
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
+    z-index: 1002; /* Ensure navbar is above mobile menu and all content */
     border-bottom: 1px solid rgba(0, 212, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
@@ -149,21 +149,30 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, .nav-logo:focus-visib
     background-clip: text;
 }
 
+/* Enhanced Navigation with better click areas and z-index handling */
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-menu a {
     color: #b8e3ef;
     text-decoration: none;
     transition: all 0.3s ease;
-    padding: 0.5em 1em;
+    padding: 0.75em 1.25em; /* Increased padding for better click area */
     border-radius: 25px;
     position: relative;
     overflow: hidden;
+    display: block; /* Ensure proper click area */
+    cursor: pointer;
+    min-height: 44px; /* Ensure minimum touch target size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-menu a::before {
@@ -1009,13 +1018,18 @@ section:last-of-type::after {
     .hero-buttons { gap: 1rem; }
     .btn { padding: 12px 20px; font-size: 0.9rem; }
     
-    .hamburger { display: block; cursor: pointer; }
+    .hamburger { 
+        display: block; 
+        cursor: pointer; 
+        z-index: 1001; /* Ensure hamburger is above mobile menu */
+        position: relative;
+    }
     .nav-menu { 
         position: fixed; 
         left: -100%; 
         top: 75px; 
         flex-direction: column; 
-        background: rgba(10, 10, 10, 0.95); 
+        background: rgba(10, 10, 10, 0.98); 
         backdrop-filter: blur(20px);
         width: 100%; 
         height: calc(100vh - 75px); 
@@ -1024,8 +1038,25 @@ section:last-of-type::after {
         gap: 3rem; 
         padding-top: 3rem; 
         border-right: 1px solid rgba(0, 212, 255, 0.2);
+        z-index: 1000; /* Ensure menu is above other content */
     }
-    .nav-menu.active { left: 0; }
+    .nav-menu.active { 
+        left: 0; 
+    }
+    
+    /* Enhanced mobile menu links */
+    .nav-menu a {
+        padding: 1rem 2rem;
+        width: 80%;
+        max-width: 300px;
+        margin: 0 auto;
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 15px;
+        background: rgba(0, 212, 255, 0.05);
+        font-size: 1.1rem;
+        font-weight: 500;
+        min-height: 56px; /* Larger touch targets for mobile */
+    }
     
     .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }

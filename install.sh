@@ -69,7 +69,7 @@ if sudo certbot certificates 2>/dev/null | grep -q "goman.ngenz.org"; then
 else
     echo "🆕 Creating new SSL certificate..."
     # Request SSL certificate
-    sudo certbot --nginx -d goman.ngenz.org -d www.goman.ngenz.org --non-interactive --agree-tos --email firmanap22@gmail.com --redirect
+    sudo certbot --nginx -d goman.ngenz.org -d www.goman.ngenz.org --non-interactive --agree-tos --email your-email@example.com --redirect
 fi
 
 # Setup automatic renewal
